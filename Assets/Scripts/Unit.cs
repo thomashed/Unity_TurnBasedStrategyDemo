@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-        MouseWorld.InputPrimaryClicked += InputPrimaryClicked;        
+
     }
 
     void Update()
@@ -26,12 +26,12 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            MoveUnit();
+            CheckUnitMovement();
         }
         
     }
 
-    private void MoveUnit()
+    private void CheckUnitMovement()
     {
         unitAnimator.SetBool("IsWalking", true);
         var newPos = (targetDest - transform.position).normalized;
@@ -40,9 +40,10 @@ public class Unit : MonoBehaviour
         transform.position += newPos * movingSpeed * Time.deltaTime;
     }
 
-    private void InputPrimaryClicked(object sender, EventArgsPrimaryInput e)
+
+    public void Move(Vector3 targetDest)
     {
-        targetDest = e.InputHitPosition;
+        this.targetDest = targetDest;   
     }
 
 }
