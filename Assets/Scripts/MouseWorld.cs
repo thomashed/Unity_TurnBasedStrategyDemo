@@ -45,4 +45,12 @@ public class MouseWorld : MonoBehaviour
     {
         InputPrimaryClicked?.Invoke(this, new EventArgsPrimaryInput(pointClicked));
     }
+
+    public static Vector3 GetMousePosition()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var isHit = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
+        //print("hit.point " + hit.point);
+        return hit.point;
+    }
 }
