@@ -31,9 +31,9 @@ namespace CoolBeans.Grid
         }
 
         // convert from worldPos to gridPos
-        public Vector3 GetWorldPosition(int x, int z) 
+        public Vector3 GetWorldPosition(GridPosition gridPosition) 
         {
-            var worldPosition = new Vector3(x, 0, z) * cellSize;
+            var worldPosition = new Vector3(gridPosition.X, 0, gridPosition.Z) * cellSize;
             worldPosition.y = 0.1f;
             return worldPosition;
         }
@@ -48,13 +48,32 @@ namespace CoolBeans.Grid
 
         public void CreateDebugObjects(Transform debugPrefab)
         {
+#if UNITY_EDITOR
+            var debugObjectsParent = GameObject.Find("Testing");
+
+            if (debugObjectsParent == null)
+            {
+                debugObjectsParent = new GameObject("Testing");
+            }
+
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
-                    GameObject.Instantiate(debugPrefab, GetWorldPosition(x,z), Quaternion.identity);
+                    var gridPosition = new GridPosition(x, z);
+                    var debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
+                    debugTransform.parent = debugObjectsParent.transform; // avoid bloating the hierachy with debugObjects
+                    debugTransform.name = $"DebugObject_{x},{z}";
+                    var gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
+                    gridDebugObject.SetGridObject(GetGridObject(gridPosition));
                 }
             }
+#endif
+        }
+
+        public GridObject GetGridObject(GridPosition gridPosition)
+        {
+            return gridObjects[gridPosition.X, gridPosition.Z];
         }
 
     }

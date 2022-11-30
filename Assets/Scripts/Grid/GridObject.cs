@@ -14,6 +14,12 @@ namespace CoolBeans.Grid
             this.gridSystem = gridSystem;
             this.gridPosition = gridPosition;
         }
+
+        public override string ToString()
+        {
+            return $"{gridPosition.X},{gridPosition.Z}"; 
+        }
+
     }
 
 }
