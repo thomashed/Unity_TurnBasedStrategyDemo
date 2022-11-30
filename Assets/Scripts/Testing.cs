@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
+    [SerializeField] private Transform gridDebugObjcetPrefab = null;
+
     private GridSystem grid;
 
     private void Awake()
     {
         grid = new GridSystem(10, 10,  2f);
-        
+        grid.CreateDebugObjects(gridDebugObjcetPrefab);
 
     }
 

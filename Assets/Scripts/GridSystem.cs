@@ -9,18 +9,22 @@ namespace CoolBeans.Grid
         private int width;
         private int height;
         private float cellSize;
+        private GridObject[,] gridObjects; // 2d array for storing gridObjects
 
         public GridSystem(int width, int height, float cellSize)
         {
             this.width = width;
             this.height = height;
             this.cellSize = cellSize;
+            this.gridObjects = new GridObject[width, height];
 
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
-                    Debug.DrawLine(GetWorldPosition(x,z), GetWorldPosition(x, z) + Vector3.right * 0.4f, Color.green, Mathf.Infinity);
+                    var gridPos = new GridPosition(x,z);
+                    var gridObject = new GridObject(this, gridPos);
+                    gridObjects[x, z] = gridObject;
                 }
             }
 
@@ -40,6 +44,17 @@ namespace CoolBeans.Grid
                 Mathf.RoundToInt(worldPos.x / cellSize), 
                 Mathf.RoundToInt(worldPos.z / cellSize)
                 );
+        }
+
+        public void CreateDebugObjects(Transform debugPrefab)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int z = 0; z < height; z++)
+                {
+                    GameObject.Instantiate(debugPrefab, GetWorldPosition(x,z), Quaternion.identity);
+                }
+            }
         }
 
     }
