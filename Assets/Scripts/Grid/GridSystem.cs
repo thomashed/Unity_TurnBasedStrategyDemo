@@ -46,6 +46,11 @@ namespace CoolBeans.Grid
                 );
         }
 
+        public GridObject GetGridObject(GridPosition gridPosition)
+        {
+            return gridObjects[gridPosition.X, gridPosition.Z];
+        }
+
         public void CreateDebugObjects(Transform debugPrefab)
         {
 #if UNITY_EDITOR
@@ -70,11 +75,7 @@ namespace CoolBeans.Grid
             }
 #endif
         }
-
-        public GridObject GetGridObject(GridPosition gridPosition)
-        {
-            return gridObjects[gridPosition.X, gridPosition.Z];
-        }
+        
 
     }
 }

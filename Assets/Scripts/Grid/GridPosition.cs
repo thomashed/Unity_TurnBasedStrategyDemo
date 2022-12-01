@@ -19,7 +19,7 @@ namespace CoolBeans.Grid
 
         public override string ToString()
         {
-            return $"GridPosition: {X}, {Z}"; 
+            return $"{X}, {Z}"; 
         }
 
     } 

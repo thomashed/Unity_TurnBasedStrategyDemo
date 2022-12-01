@@ -8,6 +8,7 @@ namespace CoolBeans.Grid
     {
         private GridSystem gridSystem; // what GridSystem created this object
         private GridPosition gridPosition; // which gridPos does this object belong to
+        public Unit Unit { get; set; }
 
         public GridObject(GridSystem gridSystem, GridPosition gridPosition)
         {
@@ -17,7 +18,7 @@ namespace CoolBeans.Grid
 
         public override string ToString()
         {
-            return $"{gridPosition.X},{gridPosition.Z}"; 
+            return $"{gridPosition}\n{Unit}"; 
         }
 
     }
