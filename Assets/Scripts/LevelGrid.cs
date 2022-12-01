@@ -3,13 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGrid : MonoBehaviour
+/// <summary>
+/// Acts as a facade into anything going on with the Grid
+/// </summary>
+public class LevelGrid : MonoBehaviour 
 {
     [SerializeField] private Transform gridDebugObjcetPrefab = null;
     private GridSystem gridSystem;
 
+    public static LevelGrid Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Debug.LogError($"Trying to create more than one instance! {transform} - {Instance}");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         gridSystem = new GridSystem(10, 10, 2f);
         gridSystem.CreateDebugObjects(gridDebugObjcetPrefab);
     }
@@ -28,5 +41,13 @@ public class LevelGrid : MonoBehaviour
     {
         gridSystem.GetGridObject(gridPosition).Unit = null;
     }
+
+    public void UnitMovedGridPosition(Unit unit, GridPosition gridPositionFrom, GridPosition gridPositionTo)
+    {
+        ClearUnitAtGridPosition(gridPositionFrom);
+        SetUnitAtGridPosition(gridPositionTo, unit);
+    }
+
+    public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
 
 }

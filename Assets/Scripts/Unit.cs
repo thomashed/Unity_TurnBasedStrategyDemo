@@ -1,3 +1,4 @@
+using CoolBeans.Grid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,17 @@ public class Unit : MonoBehaviour
 
     private Vector3 targetDest = Vector3.zero;
     private float rotationSpeed = 15f;
+    private GridPosition gridPosition;
 
     private void Awake()
     {
 
+    }
+
+    private void Start()
+    {
+        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.SetUnitAtGridPosition(gridPosition, this); // place the Unit on the levelGrid
     }
 
     void Update()
@@ -28,7 +36,14 @@ public class Unit : MonoBehaviour
         {
             CheckUnitMovement();
         }
-        
+
+        var newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        if (newGridPosition != gridPosition)
+        {
+            LevelGrid.Instance.UnitMovedGridPosition(this, gridPosition, newGridPosition); // unit changed to a new gridPosition, we update grid 
+            gridPosition = newGridPosition;
+        }
+
     }
 
     private void CheckUnitMovement()
@@ -45,5 +60,7 @@ public class Unit : MonoBehaviour
     {
         this.targetDest = targetDest;   
     }
+
+
 
 }
