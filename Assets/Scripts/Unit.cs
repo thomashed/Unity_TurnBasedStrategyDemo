@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-
+        targetDest = transform.position;
     }
 
     private void Start()
