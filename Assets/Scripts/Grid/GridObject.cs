@@ -8,17 +8,40 @@ namespace CoolBeans.Grid
     {
         private GridSystem gridSystem; // what GridSystem created this object
         private GridPosition gridPosition; // which gridPos does this object belong to
-        public Unit Unit { get; set; }
+        private List<Unit> UnitList;
 
         public GridObject(GridSystem gridSystem, GridPosition gridPosition)
         {
             this.gridSystem = gridSystem;
             this.gridPosition = gridPosition;
+            this.UnitList = new List<Unit>();   
+        }
+
+        public void AddUnit(Unit unit) 
+        { 
+            UnitList.Add(unit); 
+        }
+
+        public List<Unit> GetUnitList()
+        {
+            return UnitList;
+        }
+
+        public void RemoveUnit(Unit unit)
+        {
+            UnitList.Remove(unit);
         }
 
         public override string ToString()
         {
-            return $"{gridPosition}\n{Unit}"; 
+            var unitstring = "";
+
+            foreach (var unit in UnitList)
+            {
+                unitstring += unit.ToString() + "\n";
+            }
+
+            return $"{gridPosition}\n{unitstring}"; 
         }
 
     }
