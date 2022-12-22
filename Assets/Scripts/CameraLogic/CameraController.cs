@@ -9,13 +9,15 @@ namespace CoolBeans.CameraLogic
     {
         private float moveSpeed = 10f;
         private float rotationSpeed = 100f;
+        private float zoomSpeed = 25f;
 
-        private const float MAX_FOLLOW_OFFSET = 10f;
+        private const float MAX_FOLLOW_OFFSET = 30f;
         private const float MIN_FOLLOW_OFFSET = 0.2f;
 
 
         [SerializeField] private CinemachineVirtualCamera vCam = null;
         private CinemachineTransposer transposer;
+        private Vector3 targetFollowOffset;
 
         private void Start()
         {
@@ -73,20 +75,22 @@ namespace CoolBeans.CameraLogic
 
         private void CheckCameraZoom()
         {
-            var followOffset = transposer.m_FollowOffset;
+            targetFollowOffset = transposer.m_FollowOffset;
             var mouseScroll = Input.mouseScrollDelta;
+            var zoomAmount = 1f;
 
             if (mouseScroll.y > 0)
             {
-                followOffset.y += 1;
+                targetFollowOffset.y += zoomAmount;
             }
 
             if (mouseScroll.y < 0)
             {
-                followOffset.y -= 1;
+                targetFollowOffset.y -= zoomAmount;
             }
 
-            transposer.m_FollowOffset.y = Mathf.Clamp(followOffset.y, MIN_FOLLOW_OFFSET, MAX_FOLLOW_OFFSET);
+            targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_FOLLOW_OFFSET, MAX_FOLLOW_OFFSET);
+            transposer.m_FollowOffset = Vector3.Lerp(transposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
         }
 
     }
