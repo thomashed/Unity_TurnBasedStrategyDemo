@@ -30,7 +30,7 @@ public class UnitActionSystem : MonoBehaviour
         // see if we clicked a unit, if so, try and select said unit
         if (TrySelectNewUnit()) return;
         if (SelectedUnit == null) return;
-        SelectedUnit.Move(e.InputHitPosition); // TODO: implement a TryMoveSelectedUnit to verify the position indeed is a moveable vector3
+        SelectedUnit.MoveAction.Move(e.InputHitPosition); // TODO: implement a TryMoveSelectedUnit to verify the position indeed is a moveable vector3
     }
 
     private bool TrySelectNewUnit()
