@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitAnimator: {fileID: 4206340719736240096}
   stoppingDistance: 0.01
-  maxMoveDistance: 1
+  maxMoveDistance: 3
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0

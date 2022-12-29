@@ -11,6 +11,22 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private Transform gridDebugObjcetPrefab = null;
     private GridSystem gridSystem;
 
+    public int Width 
+    {
+        get 
+        {
+            return gridSystem.Width;
+        } 
+    }
+
+    public int Height 
+    {
+        get 
+        {
+            return gridSystem.Height;
+        }
+    }
+
     public static LevelGrid Instance { get; private set; }
 
     private void Awake()

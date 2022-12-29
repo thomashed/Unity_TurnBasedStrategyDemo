@@ -6,15 +6,15 @@ namespace CoolBeans.Grid
 {
     public class GridSystem
     {
-        private int width;
-        private int height;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         private float cellSize;
         private GridObject[,] gridObjects; // 2d array for storing gridObjects
 
         public GridSystem(int width, int height, float cellSize)
         {
-            this.width = width;
-            this.height = height;
+            this.Width = width;
+            this.Height = height;
             this.cellSize = cellSize;
             this.gridObjects = new GridObject[width, height];
 
@@ -61,9 +61,9 @@ namespace CoolBeans.Grid
                 debugObjectsParent = new GameObject("Testing");
             }
 
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int z = 0; z < height; z++)
+                for (int z = 0; z < Height; z++)
                 {
                     var gridPosition = new GridPosition(x, z);
                     var debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
@@ -80,8 +80,8 @@ namespace CoolBeans.Grid
         {
             return gridPosition.X >= 0 && 
                    gridPosition.Z >= 0 && 
-                   gridPosition.X < width && 
-                   gridPosition.Z < height;
+                   gridPosition.X < Width && 
+                   gridPosition.Z < Height;
         }
         
 
