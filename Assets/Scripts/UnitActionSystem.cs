@@ -30,7 +30,14 @@ public class UnitActionSystem : MonoBehaviour
         // see if we clicked a unit, if so, try and select said unit
         if (TrySelectNewUnit()) return;
         if (SelectedUnit == null) return;
-        SelectedUnit.MoveAction.Move(e.InputHitPosition); // TODO: implement a TryMoveSelectedUnit to verify the position indeed is a moveable vector3
+
+        var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+        if (SelectedUnit.MoveAction.IsValidActionGridPosition(mouseGridPosition))
+        {
+            SelectedUnit.MoveAction.Move(mouseGridPosition);
+        }
+
+
     }
 
     private bool TrySelectNewUnit()

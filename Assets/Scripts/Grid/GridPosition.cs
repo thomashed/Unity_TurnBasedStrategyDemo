@@ -49,5 +49,15 @@ namespace CoolBeans.Grid
             return !(a == b); // we can do this, as that'd be using the above defined == operator overload
         }
 
+        public static GridPosition operator +(GridPosition a, GridPosition b)
+        {
+            return new GridPosition(a.X + b.X, a.Z + b.Z);
+        }
+
+        public static GridPosition operator -(GridPosition a, GridPosition b)
+        {
+            return new GridPosition(a.X - b.X, a.Z - a.Z);
+        }
+
     } 
 }

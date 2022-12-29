@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private GridPosition gridPosition;
+    public GridPosition GridPosition { get; private set; }
     public MoveAction MoveAction { get; private set; }
 
     private void Awake()
@@ -15,17 +15,17 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this); // place the Unit on the levelGrid
+        GridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.AddUnitAtGridPosition(GridPosition, this); // place the Unit on the levelGrid
     }
 
     void Update()
     {
         var newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        if (newGridPosition != gridPosition)
+        if (newGridPosition != GridPosition)
         {
-            LevelGrid.Instance.UnitMovedGridPosition(this, gridPosition, newGridPosition); // unit changed to a new gridPosition, we update grid 
-            gridPosition = newGridPosition;
+            LevelGrid.Instance.UnitMovedGridPosition(this, GridPosition, newGridPosition); // unit changed to a new gridPosition, we update grid 
+            GridPosition = newGridPosition;
         }
     }
 

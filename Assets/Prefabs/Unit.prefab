@@ -34,7 +34,7 @@ Transform:
   - {fileID: 4259656374134128416}
   - {fileID: 4255012371013018225}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4022738724022826671
 BoxCollider:
@@ -74,7 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitAnimator: {fileID: 4206340719736240096}
-  stoppingDistance: 0.5
+  stoppingDistance: 0.01
+  maxMoveDistance: 1
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0

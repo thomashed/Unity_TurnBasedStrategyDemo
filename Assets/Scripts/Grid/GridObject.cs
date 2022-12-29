@@ -44,6 +44,11 @@ namespace CoolBeans.Grid
             return $"{gridPosition}\n{unitstring}"; 
         }
 
+        public bool HasUnit()
+        {
+            return UnitList.Count > 0;
+        }
+
     }
 
 }

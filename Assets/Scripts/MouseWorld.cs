@@ -46,7 +46,7 @@ public class MouseWorld : MonoBehaviour
         InputPrimaryClicked?.Invoke(this, new EventArgsPrimaryInput(pointClicked));
     }
 
-    public static Vector3 GetMousePosition()
+    public static Vector3 GetPosition()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         var isHit = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);

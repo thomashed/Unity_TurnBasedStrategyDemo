@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CoolBeans.Grid;
 
 public class MoveAction : MonoBehaviour
 {
     private Vector3 targetDest = Vector3.zero;
     [SerializeField] private Animator unitAnimator = null;
-    [SerializeField] private float stoppingDistance = 0.5f;
+    [SerializeField] private float stoppingDistance = 0.01f;
     private float rotationSpeed = 15f;
     private float movingSpeed = 5f;
 
+    [SerializeField] private int maxMoveDistance = 4;
+
+    private Unit unit;
 
     private void Awake()
     {
         targetDest = transform.position;
+        this.unit = GetComponent<Unit>(); // action is always attached to a unit
     }
 
     private void Update()
@@ -37,9 +42,41 @@ public class MoveAction : MonoBehaviour
         transform.position += newPos * movingSpeed * Time.deltaTime;
     }
 
-    public void Move(Vector3 targetDest)
+    public void Move(GridPosition gridPosition)
     {
-        this.targetDest = targetDest;
+        this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
+    }
+
+    public bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        var validGridPositionList = GetValidActionGridPositionList(); 
+        return validGridPositionList.Contains(gridPosition);
+    }
+
+    // return a list of valid gridPositions
+    // we want the unit's transform to be at the center of a grid 
+    public List<GridPosition> GetValidActionGridPositionList()
+    {
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
+
+        var unitGridPosition = unit.GridPosition;
+
+        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
+        {
+            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x,z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+                if (testGridPosition == unitGridPosition) continue; // the position where the unit currently/already is, it's not valid 
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue; // if there's already a unit on the position, it's not valid
+
+                validGridPositionList.Add(testGridPosition);
+            }
+        }
+
+        return validGridPositionList;
     }
 
 }
