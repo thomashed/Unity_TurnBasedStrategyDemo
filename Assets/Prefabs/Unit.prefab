@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4022738724022826671}
   - component: {fileID: 4255012370656517933}
   - component: {fileID: 5932582804113242432}
+  - component: {fileID: 2827660262334642854}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 4259656374134128416}
   - {fileID: 4255012371013018225}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4022738724022826671
 BoxCollider:
@@ -76,6 +77,18 @@ MonoBehaviour:
   unitAnimator: {fileID: 4206340719736240096}
   stoppingDistance: 0.01
   maxMoveDistance: 3
+--- !u!114 &2827660262334642854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255012370656517935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f320a7d4cd4ff749a199d327b8ab864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0

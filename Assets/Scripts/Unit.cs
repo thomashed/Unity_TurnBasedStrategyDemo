@@ -8,9 +8,12 @@ public class Unit : MonoBehaviour
     public GridPosition GridPosition { get; private set; }
     public MoveAction MoveAction { get; private set; }
 
+    public SpinAction SpinAction { get; private set; }  
+
     private void Awake()
     {
         this.MoveAction = GetComponent<MoveAction>();
+        this.SpinAction = GetComponent<SpinAction>();
     }
 
     private void Start()

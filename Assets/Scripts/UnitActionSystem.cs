@@ -24,6 +24,14 @@ public class UnitActionSystem : MonoBehaviour
         MouseWorld.InputPrimaryClicked += InputPrimaryClicked;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y) && SelectedUnit is not null)
+        {
+            SelectedUnit.SpinAction.Spin();
+        }
+    }
+
 
     private void InputPrimaryClicked(object sender, EventArgsPrimaryInput e)
     {

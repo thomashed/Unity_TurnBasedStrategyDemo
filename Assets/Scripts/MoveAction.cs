@@ -14,6 +14,7 @@ public class MoveAction : MonoBehaviour
     [SerializeField] private int maxMoveDistance = 4;
 
     private Unit unit;
+    private bool isActive = false;
 
     private void Awake()
     {
@@ -23,12 +24,14 @@ public class MoveAction : MonoBehaviour
 
     private void Update()
     {
+        if (!isActive) return;
         if (Vector3.Distance(transform.position, targetDest) < stoppingDistance)
         {
             unitAnimator.SetBool("IsWalking", false);
+            this.isActive = false;   
             return;
         }
-        else
+        else 
         {
             CheckUnitMovement();
         }
@@ -45,6 +48,7 @@ public class MoveAction : MonoBehaviour
     public void Move(GridPosition gridPosition)
     {
         this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        this.isActive = true;
     }
 
     public bool IsValidActionGridPosition(GridPosition gridPosition)
