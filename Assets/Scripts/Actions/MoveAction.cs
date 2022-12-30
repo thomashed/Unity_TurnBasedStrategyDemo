@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CoolBeans.Grid;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
     private Vector3 targetDest = Vector3.zero;
     [SerializeField] private Animator unitAnimator = null;
@@ -13,13 +13,10 @@ public class MoveAction : MonoBehaviour
 
     [SerializeField] private int maxMoveDistance = 4;
 
-    private Unit unit;
-    private bool isActive = false;
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();   
         targetDest = transform.position;
-        this.unit = GetComponent<Unit>(); // action is always attached to a unit
     }
 
     private void Update()
