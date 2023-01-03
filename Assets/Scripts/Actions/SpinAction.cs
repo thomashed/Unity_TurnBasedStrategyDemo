@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpinAction : BaseAction
 {
-    private float totalSpinAmount;    
+    private float totalSpinAmount;
+    public delegate void SpinComplete();
 
     private void Start()
     {
@@ -24,7 +26,7 @@ public class SpinAction : BaseAction
         }
     }
 
-    public void Spin()
+    public void Spin(SpinComplete ClearBusy)
     {
         this.totalSpinAmount = 0f;
         this.isActive = true;  

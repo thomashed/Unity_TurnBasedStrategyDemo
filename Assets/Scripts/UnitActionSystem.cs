@@ -10,6 +10,8 @@ public class UnitActionSystem : MonoBehaviour
 
     public event EventHandler SelectedUnitChanged;
     public static UnitActionSystem Instance;
+    private bool isBusy = false;
+
     public Unit SelectedUnit { get; private set; }
 
     private void Awake()
@@ -28,13 +30,15 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y) && SelectedUnit is not null)
         {
-            SelectedUnit.SpinAction.Spin();
+            if (isBusy) return;
+            SelectedUnit.SpinAction.Spin(ClearBusy);
         }
     }
 
 
     private void InputPrimaryClicked(object sender, EventArgsPrimaryInput e)
     {
+        if (isBusy) return;
         // see if we clicked a unit, if so, try and select said unit
         if (TrySelectNewUnit()) return;
         if (SelectedUnit == null) return;
@@ -75,4 +79,14 @@ public class UnitActionSystem : MonoBehaviour
     {
         SelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    private void SetBusy()
+    {
+        this.isBusy = true;
+    }
+    private void ClearBusy()
+    {
+        this.isBusy = false;
+    }
+
 }
