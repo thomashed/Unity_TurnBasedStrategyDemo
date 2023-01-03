@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CoolBeans.Grid;
+using System;
 
 public class MoveAction : BaseAction
 {
@@ -25,7 +26,8 @@ public class MoveAction : BaseAction
         if (Vector3.Distance(transform.position, targetDest) < stoppingDistance)
         {
             unitAnimator.SetBool("IsWalking", false);
-            this.isActive = false;   
+            this.isActive = false;
+            onActionComplete();
             return;
         }
         else 
@@ -42,8 +44,9 @@ public class MoveAction : BaseAction
         transform.position += newPos * movingSpeed * Time.deltaTime;
     }
 
-    public void Move(GridPosition gridPosition)
+    public void Move(GridPosition gridPosition, Action onMoveComplete)
     {
+        this.onActionComplete = onMoveComplete;
         this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
         this.isActive = true;
     }

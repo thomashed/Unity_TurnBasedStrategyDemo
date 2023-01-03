@@ -28,9 +28,11 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
+        if (isBusy) return;
+
         if (Input.GetKeyDown(KeyCode.Y) && SelectedUnit is not null)
         {
-            if (isBusy) return;
+            SetBusy();
             SelectedUnit.SpinAction.Spin(ClearBusy);
         }
     }
@@ -46,7 +48,8 @@ public class UnitActionSystem : MonoBehaviour
         var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
         if (SelectedUnit.MoveAction.IsValidActionGridPosition(mouseGridPosition))
         {
-            SelectedUnit.MoveAction.Move(mouseGridPosition);
+            SetBusy();
+            SelectedUnit.MoveAction.Move(mouseGridPosition, ClearBusy);
         }
 
 

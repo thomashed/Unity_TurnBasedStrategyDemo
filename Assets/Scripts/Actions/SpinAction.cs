@@ -6,7 +6,6 @@ using UnityEngine;
 public class SpinAction : BaseAction
 {
     private float totalSpinAmount;
-    public delegate void SpinComplete();
 
     private void Start()
     {
@@ -22,12 +21,14 @@ public class SpinAction : BaseAction
         totalSpinAmount += spinAddAmount;
         if (totalSpinAmount >= 360f)
         {
-            isActive = false;   
+            isActive = false;
+            onActionComplete();
         }
     }
 
-    public void Spin(SpinComplete ClearBusy)
+    public void Spin(Action onSpinComplete)
     {
+        this.onActionComplete = onSpinComplete;
         this.totalSpinAmount = 0f;
         this.isActive = true;  
     }
