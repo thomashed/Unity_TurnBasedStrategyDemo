@@ -25,7 +25,6 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
         Instance = this;
-        MouseWorld.InputPrimaryClicked += InputPrimaryClicked;
     }
 
     private void Start()
@@ -37,43 +36,52 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (isBusy) return;
 
-        if (Input.GetKeyDown(KeyCode.Y) && SelectedUnit is not null)
+        if (TryeHandleUnitSelection()) return; // see if we clicked a unit, if so, select said unit
+        if (SelectedUnit == null) return;        
+
+        HandleSelectedAction();
+    }
+
+    /// <summary>
+    /// Will check which action is currently selected and invoke said action
+    /// </summary>
+    private void HandleSelectedAction() 
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            SetBusy();
-            SelectedUnit.SpinAction.Spin(ClearBusy);
+            // v1: check action type, and call that action's unique action method, as they require different params
+            switch (SelectedAction) 
+            {
+                case MoveAction moveAction:
+                    var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+                    if (!moveAction.IsValidActionGridPosition(mouseGridPosition)) return; // if we clicked on invalid position, stop execution
+                    SetBusy();
+                    moveAction.Move(mouseGridPosition, ClearBusy);
+                    break;
+                case SpinAction spinAction:
+                    SetBusy();
+                    spinAction.Spin(ClearBusy);
+                    break;
+            }
+
         }
     }
 
-
-    private void InputPrimaryClicked(object sender, EventArgsPrimaryInput e)
+    private bool TryeHandleUnitSelection()
     {
-        if (isBusy) return;
-        // see if we clicked a unit, if so, try and select said unit
-        if (TrySelectNewUnit()) return;
-        if (SelectedUnit == null) return;
-
-        var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-        if (SelectedUnit.MoveAction.IsValidActionGridPosition(mouseGridPosition))
+        if (Input.GetMouseButtonDown(0))
         {
-            SetBusy();
-            SelectedUnit.MoveAction.Move(mouseGridPosition, ClearBusy);
-        }
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMaskUnits))
+            {
+                return false;
+            }
 
-
-    }
-
-    private bool TrySelectNewUnit()
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMaskUnits))
-        {
-            return false;
-        }
-
-        if (hit.collider.transform.TryGetComponent<Unit>(out Unit newUnit))
-        {
-            SetSelectedUnit(newUnit);
-            return true;
+            if (hit.collider.transform.TryGetComponent<Unit>(out Unit newUnit))
+            {
+                SetSelectedUnit(newUnit);
+                return true;
+            }
         }
 
         return false;
