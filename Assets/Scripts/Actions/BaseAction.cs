@@ -15,7 +15,6 @@ public abstract class BaseAction : MonoBehaviour
         this.unit = GetComponent<Unit>();
     }
 
-
-
+    public abstract string GetActionName();
 
 }

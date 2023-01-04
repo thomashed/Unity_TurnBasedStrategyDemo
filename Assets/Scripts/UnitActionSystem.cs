@@ -6,13 +6,15 @@ using UnityEngine;
 public class UnitActionSystem : MonoBehaviour
 {
 
-    [SerializeField] private LayerMask layerMaskUnits;
+    [SerializeField] private LayerMask layerMaskUnits; 
+    [SerializeField] private Unit selectedUnit = null;
 
     public event EventHandler SelectedUnitChanged;
     public static UnitActionSystem Instance;
     private bool isBusy = false;
 
-    public Unit SelectedUnit { get; private set; }
+    public Unit SelectedUnit { get => selectedUnit; } // we're using a backing field, as Unity doesn't allow us to serialize props
+    public BaseAction SelectedAction { get; private set; }
 
     private void Awake()
     {
@@ -24,6 +26,11 @@ public class UnitActionSystem : MonoBehaviour
         }
         Instance = this;
         MouseWorld.InputPrimaryClicked += InputPrimaryClicked;
+    }
+
+    private void Start()
+    {
+        SetSelectedUnit(this.SelectedUnit);
     }
 
     private void Update()
@@ -74,8 +81,14 @@ public class UnitActionSystem : MonoBehaviour
 
     private void SetSelectedUnit(Unit newUnit) 
     { 
-        SelectedUnit = newUnit;
+        selectedUnit = newUnit;
+        SetSelectedAction(newUnit.MoveAction); // we know that all units always have a MoveAction
         OnSelectedUnitChanged();
+    }
+
+    public void SetSelectedAction(BaseAction baseAction) 
+    {
+        SelectedAction = baseAction;
     }
 
     private void OnSelectedUnitChanged()
