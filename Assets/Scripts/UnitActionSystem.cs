@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
         if (isBusy) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return; // means mouse hover over a GO with a RayCastCollider under Canvas, i.e. UI element
 
         if (TryeHandleUnitSelection()) return; // see if we clicked a unit, if so, select said unit
         if (SelectedUnit == null) return;        
