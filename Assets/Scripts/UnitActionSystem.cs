@@ -49,20 +49,28 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // v1: check action type, and call that action's unique action method, as they require different params
-            switch (SelectedAction) 
+            // v2: we made the action classes have a TakeAction method that we can call, no matter what action we're triggering 
+            var mousePosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            if (SelectedAction.IsValidActionGridPosition(mousePosition))
             {
-                case MoveAction moveAction:
-                    var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-                    if (!moveAction.IsValidActionGridPosition(mouseGridPosition)) return; // if we clicked on invalid position, stop execution
-                    SetBusy();
-                    moveAction.Move(mouseGridPosition, ClearBusy);
-                    break;
-                case SpinAction spinAction:
-                    SetBusy();
-                    spinAction.Spin(ClearBusy);
-                    break;
+                SetBusy();
+                SelectedAction.TakeAction(mousePosition, ClearBusy);
             }
+
+            // v1: check action type, and call that action's unique action method, as they require different params
+            //switch (SelectedAction) 
+            //{
+            //    case MoveAction moveAction:
+            //        var mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            //        if (!moveAction.IsValidActionGridPosition(mouseGridPosition)) return; // if we clicked on invalid position, stop execution
+            //        SetBusy();
+            //        moveAction.Move(mouseGridPosition, ClearBusy);
+            //        break;
+            //    case SpinAction spinAction:
+            //        SetBusy();
+            //        spinAction.Spin(ClearBusy);
+            //        break;
+            //}
 
         }
     }

@@ -44,22 +44,9 @@ public class MoveAction : BaseAction
         transform.position += newPos * movingSpeed * Time.deltaTime;
     }
 
-    public void Move(GridPosition gridPosition, Action onMoveComplete)
-    {
-        this.onActionComplete = onMoveComplete;
-        this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
-        this.isActive = true;
-    }
-
-    public bool IsValidActionGridPosition(GridPosition gridPosition)
-    {
-        var validGridPositionList = GetValidActionGridPositionList(); 
-        return validGridPositionList.Contains(gridPosition);
-    }
-
     // return a list of valid gridPositions
     // we want the unit's transform to be at the center of a grid 
-    public List<GridPosition> GetValidActionGridPositionList()
+    public override List<GridPosition> GetValidActionGridPositionList()
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
@@ -69,7 +56,7 @@ public class MoveAction : BaseAction
         {
             for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
             {
-                GridPosition offsetGridPosition = new GridPosition(x,z);
+                GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
@@ -81,6 +68,13 @@ public class MoveAction : BaseAction
         }
 
         return validGridPositionList;
+    }
+
+    public override void TakeAction(GridPosition gridPosition, Action onMoveComplete)
+    {
+        this.onActionComplete = onMoveComplete;
+        this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        this.isActive = true;
     }
 
     public override string GetActionName()
