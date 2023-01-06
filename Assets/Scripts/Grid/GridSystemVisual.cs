@@ -44,9 +44,9 @@ namespace CoolBeans.Grid
         private void UpdateGridVisual() 
         {
             HideAllGridPosition();
-            var selectedUnit = UnitActionSystem.Instance.SelectedUnit;
-            if (selectedUnit == null) return;
-            var gridPositionList = selectedUnit.MoveAction.GetValidActionGridPositionList();
+            var selectedAction = UnitActionSystem.Instance.SelectedAction;
+            if (selectedAction == null) return;
+            var gridPositionList = selectedAction.GetValidActionGridPositionList();
             ShowGridPositionList(gridPositionList);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,7 +10,9 @@ public class ActionButtonUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textMeshPro = null;
     [SerializeField] private Button button = null;
+    [SerializeField] private GameObject selectedGameObject = null;
 
+    public BaseAction BaseAction { get; private set; }
 
     private void Start()
     {
@@ -23,6 +26,7 @@ public class ActionButtonUI : MonoBehaviour
 
     public void SetBaseAction(BaseAction baseAction)
     {
+        this.BaseAction = baseAction;   
         this.textMeshPro.text = baseAction.GetActionName().ToUpper();
 
         button.onClick.AddListener(() => {
@@ -30,5 +34,13 @@ public class ActionButtonUI : MonoBehaviour
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
         });
     }
+
+    public void UpdateSelectedVisual() 
+    {
+        var selectedBaseAction = UnitActionSystem.Instance.SelectedAction;
+        selectedGameObject.SetActive(selectedBaseAction == BaseAction); 
+    }
+
+
 
 }

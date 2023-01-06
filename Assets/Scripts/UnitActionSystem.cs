@@ -11,6 +11,8 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private Unit selectedUnit = null;
 
     public event EventHandler SelectedUnitChanged;
+    public event EventHandler SelectedActionChanged;
+
     public static UnitActionSystem Instance;
     private bool isBusy = false;
 
@@ -89,6 +91,7 @@ public class UnitActionSystem : MonoBehaviour
 
             if (hit.collider.transform.TryGetComponent<Unit>(out Unit newUnit))
             {
+                if (newUnit == SelectedUnit) return false; // unit already  selected
                 SetSelectedUnit(newUnit);
                 return true;
             }
@@ -107,11 +110,17 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction) 
     {
         SelectedAction = baseAction;
+        OnSelectedActionChanged();
     }
 
     private void OnSelectedUnitChanged()
     {
         SelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnSelectedActionChanged()
+    {
+        SelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void SetBusy()
