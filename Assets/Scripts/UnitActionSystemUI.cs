@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     [SerializeField] private Transform actionButtonPrefab = null;
     [SerializeField] private Transform actionButtonContainerTransform = null;
+    [SerializeField] private TextMeshProUGUI actionPointsText = null;
 
     private List<ActionButtonUI> actionButtonUIList;
 
@@ -21,7 +23,9 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         UnitActionSystem.Instance.SelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.SelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
-        
+        UnitActionSystem.Instance.ActionStarted += UnitActionSystem_OnActionStarted;
+
+        UpdateActionPoints();
         CreateUnitActionButtons(); // call from the beginning, in case we have a unit selected from the start    
         //UpdateSelectedVisual(); // TODO: is this needed? As we're already triggering above events from the beginning
     }
@@ -66,11 +70,23 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         CreateUnitActionButtons();
         UpdateSelectedVisual();
+        UpdateActionPoints();
     }
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
     {
         UpdateSelectedVisual();
+    }
+
+    private void UnitActionSystem_OnActionStarted(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
+    private void UpdateActionPoints()
+    {
+        var selectedUnit = UnitActionSystem.Instance.SelectedUnit;
+        actionPointsText.text = $"Action Points: {selectedUnit.ActionPoints}";
     }
 
 }

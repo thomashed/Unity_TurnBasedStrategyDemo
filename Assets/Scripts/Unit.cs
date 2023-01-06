@@ -7,10 +7,9 @@ public class Unit : MonoBehaviour
 {
     public GridPosition GridPosition { get; private set; }
     public MoveAction MoveAction { get; private set; } // TODO: make a generic method to request an action instead of individual fields. We already have the array of actions below
-
     public SpinAction SpinAction { get; private set; }
-
     public BaseAction[] BaseActionArray { get; private set; } // contains all available actions for this unit
+    public int ActionPoints { get; private set; } = 2;
 
     private void Awake()
     {
@@ -33,6 +32,29 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedGridPosition(this, GridPosition, newGridPosition); // unit changed to a new gridPosition, we update grid 
             GridPosition = newGridPosition;
         }
+    }
+
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) 
+    {
+        if (CanSpendActionPointsToTakeAction(baseAction))
+        {
+            SpendActionPoints(baseAction.GetActionPointCost());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        return ActionPoints >= baseAction.GetActionPointCost();
+    }
+
+    public void SpendActionPoints(int amount)
+    {
+        ActionPoints -= amount;
     }
 
 }

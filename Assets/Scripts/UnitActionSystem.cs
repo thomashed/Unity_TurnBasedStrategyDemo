@@ -13,6 +13,7 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler SelectedUnitChanged;
     public event EventHandler SelectedActionChanged;
     public event EventHandler<bool> BusyChanged;
+    public event EventHandler ActionStarted;
 
     public static UnitActionSystem Instance;
     private bool isBusy = false;
@@ -56,11 +57,14 @@ public class UnitActionSystem : MonoBehaviour
         {
             // v2: we made the action classes have a TakeAction method that we can call, no matter what action we're triggering 
             var mousePosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-            if (SelectedAction.IsValidActionGridPosition(mousePosition))
-            {
-                SetBusy();
-                SelectedAction.TakeAction(mousePosition, ClearBusy);
-            }
+            
+            if (!SelectedAction.IsValidActionGridPosition(mousePosition)) return;
+            
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(SelectedAction)) return;
+            
+            SetBusy();
+            SelectedAction.TakeAction(mousePosition, ClearBusy);
+            OnActionStarted();
 
             // v1: check action type, and call that action's unique action method, as they require different params
             //switch (SelectedAction) 
@@ -127,6 +131,11 @@ public class UnitActionSystem : MonoBehaviour
     private void OnBusyChanged() 
     {
         BusyChanged?.Invoke(this, isBusy);
+    }
+
+    private void OnActionStarted()
+    {
+        ActionStarted?.Invoke(this, EventArgs.Empty);
     }
 
     private void SetBusy()
