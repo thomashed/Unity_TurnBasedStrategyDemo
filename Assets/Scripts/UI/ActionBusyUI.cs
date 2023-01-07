@@ -16,7 +16,6 @@ public class ActionBusyUI : MonoBehaviour
 
     private void UnitActionSystem_OnBusyChanged(object sender, bool isBusy)
     {
-        print("event: " + isBusy);
         gameObject.SetActive(isBusy);
     }
 

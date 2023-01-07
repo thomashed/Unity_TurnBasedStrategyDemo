@@ -1,3 +1,4 @@
+using CoolBeans.TurnSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.SelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.SelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.ActionStarted += UnitActionSystem_OnActionStarted;
+        TurnSystem.Instance.TurnChanged += TurnSystem_OnTurnChanged;
+        Unit.PointsChanged += Unit_OnPointsChanged;
 
         UpdateActionPoints();
         CreateUnitActionButtons(); // call from the beginning, in case we have a unit selected from the start    
@@ -66,6 +69,12 @@ public class UnitActionSystemUI : MonoBehaviour
         }
     }
 
+    private void UpdateActionPoints()
+    {
+        var selectedUnit = UnitActionSystem.Instance.SelectedUnit;
+        actionPointsText.text = $"Action Points: {selectedUnit.ActionPoints}";
+    }
+
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
         CreateUnitActionButtons();
@@ -83,10 +92,14 @@ public class UnitActionSystemUI : MonoBehaviour
         UpdateActionPoints();
     }
 
-    private void UpdateActionPoints()
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e) 
     {
-        var selectedUnit = UnitActionSystem.Instance.SelectedUnit;
-        actionPointsText.text = $"Action Points: {selectedUnit.ActionPoints}";
+        UpdateActionPoints();
+    }
+
+    private void Unit_OnPointsChanged(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
     }
 
 }
