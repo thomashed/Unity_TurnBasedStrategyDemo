@@ -97,6 +97,7 @@ public class UnitActionSystem : MonoBehaviour
             if (hit.collider.transform.TryGetComponent<Unit>(out Unit newUnit))
             {
                 if (newUnit == SelectedUnit) return false; // unit already  selected
+                if (newUnit.IsEnemy) return false;
                 SetSelectedUnit(newUnit);
                 return true;
             }

@@ -11,6 +11,10 @@ public class Unit : MonoBehaviour
 
     public static event EventHandler PointsChanged;
 
+    [SerializeField] private bool isEnemy;
+
+    public bool IsEnemy { get { return isEnemy; } }
+
     public GridPosition GridPosition { get; private set; }
     public MoveAction MoveAction { get; private set; } // TODO: make a generic method to request an action instead of individual fields. We already have the array of actions below
     public SpinAction SpinAction { get; private set; }
