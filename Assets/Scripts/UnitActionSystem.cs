@@ -1,3 +1,4 @@
+using CoolBeans.TurnSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
         if (isBusy) return;
+        if (!TurnSystem.Instance.IsPlayerTurn) return; // not player's turn
         if (EventSystem.current.IsPointerOverGameObject()) return; // means mouse hover over a GO with a RayCastCollider under Canvas, i.e. UI element
 
         if (TryeHandleUnitSelection()) return; // see if we clicked a unit, if so, select said unit

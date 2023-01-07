@@ -74,8 +74,11 @@ public class Unit : MonoBehaviour
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        ActionPoints = ACTION_POINTS_MAX;
-        OnPointsChanged();
+        if ((IsEnemy && !TurnSystem.Instance.IsPlayerTurn) || (!IsEnemy && TurnSystem.Instance.IsPlayerTurn))
+        {
+            ActionPoints = ACTION_POINTS_MAX;
+            OnPointsChanged();
+        }
     }
 
     private void OnPointsChanged()

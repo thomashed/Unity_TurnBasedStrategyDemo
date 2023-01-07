@@ -10,6 +10,7 @@ namespace CoolBeans.TurnSystem
         public static TurnSystem Instance { get; private set; }
         
         public int TurnNumber { get; private set; } = 1;
+        public bool IsPlayerTurn { get; private set; } = true;
 
         public event EventHandler TurnChanged;
 
@@ -28,6 +29,7 @@ namespace CoolBeans.TurnSystem
         public void NextTurn()
         {
             TurnNumber++;
+            IsPlayerTurn = !IsPlayerTurn; 
             OnTurnChanged();
         }
 
