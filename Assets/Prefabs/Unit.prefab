@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4255012370656517933}
   - component: {fileID: 5932582804113242432}
   - component: {fileID: 2827660262334642854}
+  - component: {fileID: 8972692085237496291}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -62,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb7614cdb86f4a46ad775289a55ffb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!114 &5932582804113242432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +91,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f320a7d4cd4ff749a199d327b8ab864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8972692085237496291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255012370656517935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe0852c4b99c3c48a826ed85b8108bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShootDistance: 5
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0

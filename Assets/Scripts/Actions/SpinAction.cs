@@ -27,17 +27,15 @@ public class SpinAction : BaseAction
         }
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onSpinComplete)
+    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onSpinComplete;
+        this.onActionComplete = onActionComplete;
         this.totalSpinAmount = 0f;
         this.isActive = true;  
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
-
         // trigger the action exactly where the unit is standing, as Spinning doesn't care about movement, thus neither position
         GridPosition unitGridPosition = unit.GridPosition;
         return new List<GridPosition>() 

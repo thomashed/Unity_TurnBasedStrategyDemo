@@ -49,6 +49,12 @@ namespace CoolBeans.Grid
             return UnitList.Count > 0;
         }
 
+        public Unit GetUnit()
+        {
+            if (!HasUnit()) return null;
+            return UnitList[0]; 
+        }
+
     }
 
 }

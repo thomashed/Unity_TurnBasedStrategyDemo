@@ -48,11 +48,6 @@ public class LevelGrid : MonoBehaviour
         gridSystem.GetGridObject(gridPosition).AddUnit(unit);
     }
 
-    public List<Unit> GetUnitAtGridPosition(GridPosition gridPosition) 
-    {
-        return gridSystem.GetGridObject(gridPosition).GetUnitList();
-    }
-
     public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         // only clear the gridObject's Unit, if it's the same unit as this one
@@ -69,6 +64,12 @@ public class LevelGrid : MonoBehaviour
     {
         var gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.HasUnit();
+    }
+
+    public Unit GetUnitAtGridPosition(GridPosition gridPosition)
+    {
+        var gridObject = gridSystem.GetGridObject(gridPosition);
+        return gridObject.GetUnit();
     }
 
     public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
