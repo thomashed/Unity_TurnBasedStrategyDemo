@@ -7,7 +7,16 @@ using UnityEngine;
 public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance = 7;
-    private float totalSpinAmount;
+
+    private enum State 
+    {
+        Aiming,
+        Shooting, 
+        Cooloff,
+    }
+
+    private State state;
+    private float stateTimer;
 
     private void Start()
     {
@@ -18,14 +27,36 @@ public class ShootAction : BaseAction
     {
         if (!isActive) return;
 
-        var spinAddAmount = 360f * Time.deltaTime;
-        transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
-        totalSpinAmount += spinAddAmount;
-        if (totalSpinAmount >= 360f)
+        stateTimer -= Time.deltaTime;
+
+        // check our state when stateTimer is down
+        if (stateTimer <= 0f)
         {
-            isActive = false;
-            onActionComplete();
+            NextState();
         }
+
+    }
+
+    private void NextState()
+    {
+        switch (state)
+        {
+            case State.Aiming:
+                state = State.Shooting;
+                float shootingStateTime = 3.1f;
+                stateTimer = shootingStateTime;
+                break;
+            case State.Shooting:
+                state = State.Cooloff;
+                float coolOffStateTime = 0.5f;
+                stateTimer = coolOffStateTime;
+                break;
+            case State.Cooloff:
+                isActive = false;
+                onActionComplete();
+                break;
+        }
+        print($"ShootAction/NextState: {state}");
     }
 
     public override string GetActionName()
@@ -66,8 +97,12 @@ public class ShootAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         this.onActionComplete = onActionComplete;
-        this.totalSpinAmount = 0f;
         this.isActive = true;
+
+        state = State.Aiming;
+        var aimingStateTime = 1f;
+        stateTimer = aimingStateTime;
+        print("ShootAction/TakeAction");
     }
 
 }
