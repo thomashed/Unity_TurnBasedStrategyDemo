@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ShootAction : BaseAction
 {
+    public event EventHandler StartShooting;
+
     [SerializeField] private int maxShootDistance = 7;
 
     private Unit targetUnit;
@@ -59,13 +61,14 @@ public class ShootAction : BaseAction
 
     private void RotateTowardsTarget()
     {
-        var rotationSpeed = 45f;
+        var rotationSpeed = 15f;
         var aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
         transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotationSpeed);
     }
 
     private void Shoot()
     {
+        OnStartShooting();
         targetUnit.Damage();
     }
 
@@ -131,10 +134,17 @@ public class ShootAction : BaseAction
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
-        var aimingStateTime = 1f;
+        var aimingStateTime = 1.5f;
         stateTimer = aimingStateTime;
 
         canShootBullet = true;
     }
+
+    private void OnStartShooting()
+    {
+        StartShooting?.Invoke(this, EventArgs.Empty);
+    }
+
+   
 
 }

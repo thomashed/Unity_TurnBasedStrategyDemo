@@ -6,8 +6,10 @@ using System;
 
 public class MoveAction : BaseAction
 {
+    public event EventHandler StartMoving;
+    public event EventHandler StopMoving;
+
     private Vector3 targetDest = Vector3.zero;
-    [SerializeField] private Animator unitAnimator = null;
     [SerializeField] private float stoppingDistance = 0.01f;
     private float rotationSpeed = 15f;
     private float movingSpeed = 5f;
@@ -25,7 +27,7 @@ public class MoveAction : BaseAction
         if (!isActive) return;
         if (Vector3.Distance(transform.position, targetDest) < stoppingDistance)
         {
-            unitAnimator.SetBool("IsWalking", false);
+            OnStopMoving();
             ActionComplete();
             return;
         }
@@ -37,7 +39,6 @@ public class MoveAction : BaseAction
 
     private void CheckUnitMovement()
     {
-        unitAnimator.SetBool("IsWalking", true);
         var newPos = (targetDest - transform.position).normalized;
         transform.forward = Vector3.Lerp(transform.forward, newPos, Time.deltaTime * rotationSpeed);
         transform.position += newPos * movingSpeed * Time.deltaTime;
@@ -71,6 +72,7 @@ public class MoveAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
+        OnStartMoving();
         ActionStart(onActionComplete);
         this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
     }
@@ -78,6 +80,15 @@ public class MoveAction : BaseAction
     public override string GetActionName()
     {
         return "Move";
+    }
+
+    private void OnStartMoving()
+    {
+        StartMoving?.Invoke(this, EventArgs.Empty);
+    }
+    private void OnStopMoving()
+    {
+        StopMoving?.Invoke(this, EventArgs.Empty);
     }
 
 }
