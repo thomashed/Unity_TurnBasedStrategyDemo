@@ -36,6 +36,11 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.TurnChanged += TurnSystem_OnTurnChanged;
     }
 
+    internal Vector3 GetWorldPosition()
+    {
+        return transform.position;
+    }
+
     void Update()
     {
         var newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -70,6 +75,11 @@ public class Unit : MonoBehaviour
     {
         ActionPoints -= amount;
         OnPointsChanged();
+    }
+
+    public void Damage()
+    {
+
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)

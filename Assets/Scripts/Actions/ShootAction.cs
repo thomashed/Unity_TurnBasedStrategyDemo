@@ -8,6 +8,9 @@ public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance = 7;
 
+    private Unit targetUnit;
+    private bool canShootBullet;
+
     private enum State 
     {
         Aiming,
@@ -29,12 +32,41 @@ public class ShootAction : BaseAction
 
         stateTimer -= Time.deltaTime;
 
-        // check our state when stateTimer is down
+        switch (state)
+        {
+            case State.Aiming:
+                RotateTowardsTarget();
+                break;
+            case State.Shooting:
+                if (canShootBullet)
+                {
+                    Shoot();
+                    canShootBullet = false;
+                }
+                break;
+            case State.Cooloff:
+
+                break;
+        }
+
+        // check our state when stateTimer is ticking
         if (stateTimer <= 0f)
         {
             NextState();
         }
 
+    }
+
+    private void RotateTowardsTarget()
+    {
+        var rotationSpeed = 45f;
+        var aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+        transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotationSpeed);
+    }
+
+    private void Shoot()
+    {
+        targetUnit.Damage();
     }
 
     private void NextState()
@@ -43,7 +75,7 @@ public class ShootAction : BaseAction
         {
             case State.Aiming:
                 state = State.Shooting;
-                float shootingStateTime = 3.1f;
+                float shootingStateTime = 2.1f;
                 stateTimer = shootingStateTime;
                 break;
             case State.Shooting:
@@ -52,11 +84,9 @@ public class ShootAction : BaseAction
                 stateTimer = coolOffStateTime;
                 break;
             case State.Cooloff:
-                isActive = false;
-                onActionComplete();
+                ActionComplete();
                 break;
         }
-        print($"ShootAction/NextState: {state}");
     }
 
     public override string GetActionName()
@@ -96,13 +126,15 @@ public class ShootAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onActionComplete;
-        this.isActive = true;
+        ActionStart(onActionComplete);
+
+        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
         var aimingStateTime = 1f;
         stateTimer = aimingStateTime;
-        print("ShootAction/TakeAction");
+
+        canShootBullet = true;
     }
 
 }

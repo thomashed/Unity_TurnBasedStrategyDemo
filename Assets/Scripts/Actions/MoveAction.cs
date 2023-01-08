@@ -26,8 +26,7 @@ public class MoveAction : BaseAction
         if (Vector3.Distance(transform.position, targetDest) < stoppingDistance)
         {
             unitAnimator.SetBool("IsWalking", false);
-            this.isActive = false;
-            onActionComplete();
+            ActionComplete();
             return;
         }
         else 
@@ -70,11 +69,10 @@ public class MoveAction : BaseAction
         return validGridPositionList;
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action onMoveComplete)
+    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onMoveComplete;
+        ActionStart(onActionComplete);
         this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
-        this.isActive = true;
     }
 
     public override string GetActionName()
