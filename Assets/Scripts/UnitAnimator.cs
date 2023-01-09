@@ -6,7 +6,9 @@ using UnityEngine;
 public class UnitAnimator : MonoBehaviour
 {
 
-    [SerializeField] private Animator animator = null;
+    [SerializeField] private Animator animator = null; 
+    [SerializeField] private Transform bulletProjectilePrefab = null;
+    [SerializeField] private Transform shootPointTransform = null;
 
     private void Awake()
     {
@@ -41,9 +43,16 @@ public class UnitAnimator : MonoBehaviour
         animator.SetBool("IsWalking", false);
     }
 
-    private void ShootAction_OnStartShooting(object sender, EventArgs e)
+    private void ShootAction_OnStartShooting(object sender, ShootAction.StartShootingEventArgs e)
     {
         animator.SetTrigger("Shoot");
+        var bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        var bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        // make sure the height of the bullet stays the same while moving
+        var targetWorldPosition = e.targetUnit.GetWorldPosition();
+        targetWorldPosition.y = shootPointTransform.transform.position.y;
+        bulletProjectile.Setup(targetWorldPosition);
     }
 
    

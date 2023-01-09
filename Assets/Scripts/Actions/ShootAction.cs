@@ -6,7 +6,14 @@ using UnityEngine;
 
 public class ShootAction : BaseAction
 {
-    public event EventHandler StartShooting;
+    public event EventHandler<StartShootingEventArgs> StartShooting;
+
+    public class StartShootingEventArgs : EventArgs
+    {
+        public Unit targetUnit; // should this be props? constructor?
+        public Unit shootingUnit;
+    }
+    
 
     [SerializeField] private int maxShootDistance = 7;
 
@@ -142,7 +149,13 @@ public class ShootAction : BaseAction
 
     private void OnStartShooting()
     {
-        StartShooting?.Invoke(this, EventArgs.Empty);
+        var eventArgs = new StartShootingEventArgs();
+        
+        StartShooting?.Invoke(this, new StartShootingEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
     }
 
    
