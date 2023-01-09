@@ -76,7 +76,7 @@ public class ShootAction : BaseAction
     private void Shoot()
     {
         OnStartShooting();
-        targetUnit.Damage();
+        targetUnit.Damage(40);
     }
 
     private void NextState()

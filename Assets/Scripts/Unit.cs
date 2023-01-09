@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
     public bool IsEnemy { get { return isEnemy; } }
 
     public GridPosition GridPosition { get; private set; }
+    public HealthSystem HealthSystem { get; private set; }
     public MoveAction MoveAction { get; private set; } // TODO: make a generic method to request an action instead of individual fields. We already have the array of actions below
     public SpinAction SpinAction { get; private set; }
     public BaseAction[] BaseActionArray { get; private set; } // contains all available actions for this unit
@@ -23,6 +24,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
+        this.HealthSystem = GetComponent<HealthSystem>();
         this.MoveAction = GetComponent<MoveAction>();
         this.SpinAction = GetComponent<SpinAction>();
         this.BaseActionArray = GetComponents<BaseAction>();
@@ -34,6 +36,8 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.AddUnitAtGridPosition(GridPosition, this); // place the Unit on the levelGrid
 
         TurnSystem.Instance.TurnChanged += TurnSystem_OnTurnChanged;
+
+        HealthSystem.Dead += HealthSystem_OnDead;
     }
 
     internal Vector3 GetWorldPosition()
@@ -77,9 +81,9 @@ public class Unit : MonoBehaviour
         OnPointsChanged();
     }
 
-    public void Damage()
+    public void Damage(int damageAmount)
     {
-
+        HealthSystem.Damage(damageAmount);
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
@@ -94,6 +98,12 @@ public class Unit : MonoBehaviour
     private void OnPointsChanged()
     {
         PointsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void HealthSystem_OnDead(object sender, EventArgs e)
+    {
+        LevelGrid.Instance.RemoveUnitAtGridPosition(GridPosition, this);
+        Destroy(gameObject);
     }
 
 }
