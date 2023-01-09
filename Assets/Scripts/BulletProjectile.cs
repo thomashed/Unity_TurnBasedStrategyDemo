@@ -6,6 +6,7 @@ public class BulletProjectile : MonoBehaviour
 {
 
     [SerializeField] private TrailRenderer trailRenderer = null;
+    [SerializeField] private Transform bulletVfxPrefab = null;
 
     private Vector3 targetPosition;
     private float moveSpeed = 150f;
@@ -25,6 +26,7 @@ public class BulletProjectile : MonoBehaviour
             transform.position = targetPosition; // might as well fix the position so user wont see the overshooting
             trailRenderer.transform.parent = null; // un-parent the Trail, so its destroyed independently
             Destroy(gameObject);
+            Instantiate(bulletVfxPrefab, targetPosition, Quaternion.identity);
         }
 
     }
