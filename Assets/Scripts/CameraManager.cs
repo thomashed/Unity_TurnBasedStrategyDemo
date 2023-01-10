@@ -44,7 +44,6 @@ public class CameraManager : MonoBehaviour
                 var cameraCharacterHeight = Vector3.up * 1.7f;
 
                 var shootDir = (targetUnit.GetWorldPosition() - shooterUnit.GetWorldPosition()).normalized;
-                print("shootDir: " + shootDir);
 
                 var shoulderOffsetAmount = 0.5f;
                 var shoulderOffset = Quaternion.Euler(0, 90, 0) * shootDir * shoulderOffsetAmount;
@@ -61,7 +60,6 @@ public class CameraManager : MonoBehaviour
                 ShowActionCamera();
                 break;
         }
-
     }
 
     private void BaseAction_OnAnyActionComplete(object sender, EventArgs e)

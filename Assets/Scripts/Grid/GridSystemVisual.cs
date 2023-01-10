@@ -8,9 +8,26 @@ namespace CoolBeans.Grid
     public class GridSystemVisual : MonoBehaviour
     {
         [SerializeField] private Transform gridSystemVisualPrefab = null;
+        [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList = null;
         private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
         public static GridSystemVisual Instance;
+
+        // custom struct to hold together which enum fits with which material 
+        [Serializable]
+        public struct GridVisualTypeMaterial 
+        {
+            public GridVisualType gridVisualType;
+            public Material material;
+        }
+
+        public enum GridVisualType 
+        {
+            White, 
+            Blue,
+            Red,
+            Yellow
+        }
 
         private void Awake()
         {
@@ -63,12 +80,26 @@ namespace CoolBeans.Grid
             }
         }
 
-        public void ShowGridPositionList(List<GridPosition> gridPositionList)
+        public void ShowGridPositionList(List<GridPosition> gridPositionList, GridVisualType gridVisualType)
         {
+            var colourForGridPosition = GetGridVisualTypeMaterial(gridVisualType);
             foreach (var gridPosition in gridPositionList)
             {
-                gridSystemVisualSingleArray[gridPosition.X, gridPosition.Z].Show();
+                gridSystemVisualSingleArray[gridPosition.X, gridPosition.Z].Show(colourForGridPosition);
             }
+        }
+
+        private Material GetGridVisualTypeMaterial(GridVisualType gridVisualType)
+        {
+            foreach (var availableVisualType in gridVisualTypeMaterialList)
+            {
+                if (availableVisualType.gridVisualType == gridVisualType)
+                {
+                    return availableVisualType.material;
+                }
+            }
+            Debug.Log("Couldn't find material for: " + gridVisualType);
+            return null;
         }
 
         private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) 
