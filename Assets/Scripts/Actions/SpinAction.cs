@@ -28,14 +28,14 @@ public class SpinAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
         this.totalSpinAmount = 0f;
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         // trigger the action exactly where the unit is standing, as Spinning doesn't care about movement, thus neither position
-        GridPosition unitGridPosition = unit.GridPosition;
+        GridPosition unitGridPosition = Unit.GridPosition;
         return new List<GridPosition>() 
         { 
             unitGridPosition 

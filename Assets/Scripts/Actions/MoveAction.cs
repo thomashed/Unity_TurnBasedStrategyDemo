@@ -50,7 +50,7 @@ public class MoveAction : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        var unitGridPosition = unit.GridPosition;
+        var unitGridPosition = Unit.GridPosition;
 
         for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {
@@ -73,8 +73,8 @@ public class MoveAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         OnStartMoving();
-        ActionStart(onActionComplete);
         this.targetDest = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        ActionStart(onActionComplete);
     }
 
     public override string GetActionName()

@@ -17,7 +17,7 @@ public class ShootAction : BaseAction
 
     [SerializeField] private int maxShootDistance = 7;
 
-    private Unit targetUnit;
+    public Unit TargetUnit { get; private set; }
     private bool canShootBullet;
 
     private enum State 
@@ -69,14 +69,14 @@ public class ShootAction : BaseAction
     private void RotateTowardsTarget()
     {
         var rotationSpeed = 15f;
-        var aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+        var aimDirection = (TargetUnit.GetWorldPosition() - Unit.GetWorldPosition()).normalized;
         transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotationSpeed);
     }
 
     private void Shoot()
     {
         OnStartShooting();
-        targetUnit.Damage(40);
+        TargetUnit.Damage(40);
     }
 
     private void NextState()
@@ -85,12 +85,12 @@ public class ShootAction : BaseAction
         {
             case State.Aiming:
                 state = State.Shooting;
-                float shootingStateTime = 2.1f;
+                float shootingStateTime = 1f;
                 stateTimer = shootingStateTime;
                 break;
             case State.Shooting:
                 state = State.Cooloff;
-                float coolOffStateTime = 0.5f;
+                float coolOffStateTime = 0.2f;
                 stateTimer = coolOffStateTime;
                 break;
             case State.Cooloff:
@@ -107,7 +107,7 @@ public class ShootAction : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        var unitGridPosition = unit.GridPosition;
+        var unitGridPosition = Unit.GridPosition;
 
         for (int x = -maxShootDistance; x <= maxShootDistance; x++)
         {
@@ -125,7 +125,7 @@ public class ShootAction : BaseAction
 
                 var targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
-                if (unit.IsEnemy == targetUnit.IsEnemy) continue; // both on the same team, ignore
+                if (Unit.IsEnemy == targetUnit.IsEnemy) continue; // both on the same team, ignore
                 
                 validGridPositionList.Add(testGridPosition);
             }
@@ -136,15 +136,15 @@ public class ShootAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
-
-        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        TargetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
         var aimingStateTime = 1.5f;
         stateTimer = aimingStateTime;
 
         canShootBullet = true;
+
+        ActionStart(onActionComplete);
     }
 
     private void OnStartShooting()
@@ -153,8 +153,8 @@ public class ShootAction : BaseAction
         
         StartShooting?.Invoke(this, new StartShootingEventArgs
         {
-            targetUnit = targetUnit,
-            shootingUnit = unit
+            targetUnit = TargetUnit,
+            shootingUnit = Unit
         });
     }
 
