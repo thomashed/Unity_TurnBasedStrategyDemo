@@ -31,8 +31,6 @@ public class HealthSystem : MonoBehaviour
         {
             Die();
         }
-
-        print("Damage:" + health);
     }
 
     private void Die()
