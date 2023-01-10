@@ -1,4 +1,5 @@
 using CoolBeans.Grid;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class LevelGrid : MonoBehaviour 
 {
+    public event EventHandler AnyUnitMovedGridPosition;
+    
     [SerializeField] private Transform gridDebugObjcetPrefab = null;
     private GridSystem gridSystem;
 
@@ -58,6 +61,7 @@ public class LevelGrid : MonoBehaviour
     {
         RemoveUnitAtGridPosition(gridPositionFrom, unit);
         AddUnitAtGridPosition(gridPositionTo, unit);
+        OnAnyUnitMovedGridPosition();
     }
 
     public bool HasAnyUnitOnGridPosition(GridPosition gridPosition)
@@ -77,5 +81,10 @@ public class LevelGrid : MonoBehaviour
     public Vector3 GetWorldPosition(GridPosition gridPosition) => gridSystem.GetWorldPosition(gridPosition);
 
     public bool IsValidGridPosition(GridPosition gridPosition) => gridSystem.IsValidGridPosition(gridPosition);
+
+    public void OnAnyUnitMovedGridPosition()
+    {
+        AnyUnitMovedGridPosition?.Invoke(this, EventArgs.Empty);
+    }
 
 }

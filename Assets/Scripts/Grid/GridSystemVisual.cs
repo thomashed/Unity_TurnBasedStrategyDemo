@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,11 +35,15 @@ namespace CoolBeans.Grid
                     gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
                 }
             }
+
+            UnitActionSystem.Instance.SelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+            LevelGrid.Instance.AnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
+            UpdateGridVisual();
         }
 
         private void Update()
         {
-            UpdateGridVisual();
+            
         }
 
         private void UpdateGridVisual() 
@@ -64,6 +69,16 @@ namespace CoolBeans.Grid
             {
                 gridSystemVisualSingleArray[gridPosition.X, gridPosition.Z].Show();
             }
+        }
+
+        private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) 
+        {
+            UpdateGridVisual();
+        }
+
+        private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e)
+        {
+            UpdateGridVisual();
         }
 
     }
