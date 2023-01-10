@@ -9,20 +9,20 @@ public class UnitRagdoll : MonoBehaviour
     
     public void Setup(Transform originalRootBone)
     {
-        MathAllChildTransform(originalRootBone, ragdollRootBone); // match original's bones, to avoid T-pose
+        MatchAllChildTransform(originalRootBone, ragdollRootBone); // match original's bones, to avoid T-pose
         ApplyExplosionToRagDoll(ragdollRootBone, 900f, transform.position, 100f); // apply force at ragdoll's position
     }
 
-    private void MathAllChildTransform(Transform root, Transform clone)
+    private void MatchAllChildTransform(Transform root, Transform clone)
     {
         foreach (Transform child in root)
         {
             var cloneChild = clone.Find(child.name);
-            if (cloneChild != null)
+            if (cloneChild != null) // we have a match, meaning the match in clone should have same position as root
             {
                 cloneChild.position = child.position;
                 cloneChild.rotation = child.rotation;
-                MathAllChildTransform(child, cloneChild); // we need to go multiple levels down, we use recursion
+                MatchAllChildTransform(child, cloneChild); // we need to go multiple levels down, we use recursion
             }
         }
     }

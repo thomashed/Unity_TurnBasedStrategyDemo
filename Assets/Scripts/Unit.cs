@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
 {
     private const int ACTION_POINTS_MAX = 2;
 
-    public static event EventHandler PointsChanged;
+    public static event EventHandler AnyPointsChanged;
 
     [SerializeField] private bool isEnemy;
 
@@ -97,7 +97,7 @@ public class Unit : MonoBehaviour
 
     private void OnPointsChanged()
     {
-        PointsChanged?.Invoke(this, EventArgs.Empty);
+        AnyPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void HealthSystem_OnDead(object sender, EventArgs e)
