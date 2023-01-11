@@ -15,7 +15,8 @@ public class ShootAction : BaseAction
     }
     
 
-    [SerializeField] private int maxShootDistance = 7;
+    [SerializeField] private int maxShootRange = 7;
+    public int MaxShootRange { get => maxShootRange; private set { } }
 
     public Unit TargetUnit { get; private set; }
     private bool canShootBullet;
@@ -109,9 +110,9 @@ public class ShootAction : BaseAction
 
         var unitGridPosition = Unit.GridPosition;
 
-        for (int x = -maxShootDistance; x <= maxShootDistance; x++)
+        for (int x = -maxShootRange; x <= maxShootRange; x++)
         {
-            for (int z = -maxShootDistance; z <= maxShootDistance; z++)
+            for (int z = -maxShootRange; z <= maxShootRange; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -119,7 +120,7 @@ public class ShootAction : BaseAction
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue; // are we inside the grid?
 
                 int testDistance = Math.Abs(x) + Math.Abs(z); // make the range "circular" for shooting 
-                if (testDistance > maxShootDistance) continue; 
+                if (testDistance > maxShootRange) continue; 
 
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue; // if no unit on the position, we don't care, as we search for EnemyAI, which is a Unit
 
