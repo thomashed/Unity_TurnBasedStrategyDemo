@@ -6,28 +6,104 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    
+
+    private enum State
+    {
+        WaitingForEnemyTurn,
+        TakingTurn,
+        Busy
+    }
+
+    private State state;
     private float timer;
+
+
+    private void Awake()
+    {
+        state = State.WaitingForEnemyTurn;
+    }
 
     private void Start()
     {
-        TurnSystem.Instance.TurnChanged += TurnSystem_TurnChanged;
+        TurnSystem.Instance.TurnChanged += TurnSystem_OnTurnChanged;
     }
 
     private void Update()
     {
-        if (TurnSystem.Instance.IsPlayerTurn) return;    
+        if (TurnSystem.Instance.IsPlayerTurn) return;
 
-        timer -= Time.deltaTime;
-
-        if (timer <= 0f)
+        switch (state)
         {
-            TurnSystem.Instance.NextTurn();
+            case State.WaitingForEnemyTurn:
+                
+                break;
+            case State.TakingTurn:
+                timer -= Time.deltaTime;
+
+                if (timer <= 0f)
+                {
+                    if (TryTakeEnemyAIAction(SetStateTakingTurn))
+                    {
+                        state = State.Busy;
+                    }
+                    else
+                    {
+                        // no more enemies have actions they can take, so we end enemy's turn
+                        TurnSystem.Instance.NextTurn();
+                        state = State.WaitingForEnemyTurn;
+                    }
+                }
+                break;
+            case State.Busy:
+                
+                break;
         }
+
     }
 
-    private void TurnSystem_TurnChanged(object sender, EventArgs e)
+    private void SetStateTakingTurn()
     {
+        timer = 0.5f;
+        state = State.TakingTurn;
+    }
+
+    private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
+    {
+        foreach (Unit enemyUnit in UnitManager.Instance.EnemyUnitList)
+        {
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
+    {
+        // default to Spin actions for now
+        SpinAction spinAction = enemyUnit.SpinAction;
+
+        var actionGridPosition = enemyUnit.GridPosition;
+
+        if (!spinAction.IsValidActionGridPosition(actionGridPosition)) 
+        {
+            return false;
+        }
+        
+        if (!enemyUnit.TrySpendActionPointsToTakeAction(spinAction))
+        {
+            return false;
+        }
+
+        spinAction.TakeAction(actionGridPosition, onEnemyAIActionComplete);
+        return true; 
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (TurnSystem.Instance.IsPlayerTurn) return;
+        state = State.TakingTurn;
         timer = 2f;
     }
 

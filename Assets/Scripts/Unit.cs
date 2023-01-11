@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
     private const int ACTION_POINTS_MAX = 2;
 
     public static event EventHandler AnyPointsChanged;
+    public static event EventHandler AnyUnitSpawned;
+    public static event EventHandler AnyUnitDead;
 
     [SerializeField] private bool isEnemy;
 
@@ -38,6 +40,7 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.TurnChanged += TurnSystem_OnTurnChanged;
 
         HealthSystem.Dead += HealthSystem_OnDead;
+        OnAnyUnitSpawned();
     }
 
     internal Vector3 GetWorldPosition()
@@ -101,10 +104,21 @@ public class Unit : MonoBehaviour
         AnyPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    private void OnAnyUnitSpawned()
+    {
+        AnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnAnyUnitDead()
+    {
+        AnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+
     private void HealthSystem_OnDead(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(GridPosition, this);
         Destroy(gameObject);
+        OnAnyUnitDead(); // Is this a problem, being called AFTER DEstroy?
     }
 
 }

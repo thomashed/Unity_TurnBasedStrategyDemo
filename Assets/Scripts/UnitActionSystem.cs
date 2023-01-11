@@ -16,7 +16,7 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler<bool> BusyChanged;
     public event EventHandler ActionStarted;
 
-    public static UnitActionSystem Instance;
+    public static UnitActionSystem Instance { get; private set; }
     private bool isBusy = false;
 
     public Unit SelectedUnit { get => selectedUnit; } // we're using a backing field, as Unity doesn't allow us to serialize props
