@@ -104,7 +104,14 @@ public class ShootAction : BaseAction
     {
         return "Shoot";
     }
+
     public override List<GridPosition> GetValidActionGridPositionList()
+    {
+        return GetValidActionGridPositionList(Unit.GridPosition);
+    }
+
+
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition gridPosition)
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
@@ -146,6 +153,24 @@ public class ShootAction : BaseAction
         canShootBullet = true;
 
         ActionStart(onActionComplete);
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        Unit targetunit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        // We get health, so unit shootACtion will prioritizse shooting the unit that is NOT at full health
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 100 + Mathf.RoundToInt((1 - targetunit.GetHealthNormalized()) * 100f),
+        };
+    }
+
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        var gridPositionsWithTargets = GetValidActionGridPositionList(gridPosition);
+        return gridPositionsWithTargets.Count;
     }
 
     private void OnStartShooting()

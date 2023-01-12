@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     public HealthSystem HealthSystem { get; private set; }
     public MoveAction MoveAction { get; private set; } // TODO: make a generic method to request an action instead of individual fields. We already have the array of actions below
     public SpinAction SpinAction { get; private set; }
+    public ShootAction ShootAction { get; private set; }
     public BaseAction[] BaseActionArray { get; private set; } // contains all available actions for this unit
     public int ActionPoints { get; private set; } = ACTION_POINTS_MAX;
 
@@ -29,6 +30,7 @@ public class Unit : MonoBehaviour
         this.HealthSystem = GetComponent<HealthSystem>();
         this.MoveAction = GetComponent<MoveAction>();
         this.SpinAction = GetComponent<SpinAction>();
+        this.ShootAction = GetComponent<ShootAction>();
         this.BaseActionArray = GetComponents<BaseAction>();
     }
 
@@ -90,13 +92,9 @@ public class Unit : MonoBehaviour
         HealthSystem.Damage(damageAmount);
     }
 
-    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    public float GetHealthNormalized()
     {
-        if ((IsEnemy && !TurnSystem.Instance.IsPlayerTurn) || (!IsEnemy && TurnSystem.Instance.IsPlayerTurn))
-        {
-            ActionPoints = ACTION_POINTS_MAX;
-            OnPointsChanged();
-        }
+        return HealthSystem.GetHealthNormalized();
     }
 
     private void OnPointsChanged()
@@ -119,6 +117,15 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.RemoveUnitAtGridPosition(GridPosition, this);
         Destroy(gameObject);
         OnAnyUnitDead(); // Is this a problem, being called AFTER DEstroy?
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if ((IsEnemy && !TurnSystem.Instance.IsPlayerTurn) || (!IsEnemy && TurnSystem.Instance.IsPlayerTurn))
+        {
+            ActionPoints = ACTION_POINTS_MAX;
+            OnPointsChanged();
+        }
     }
 
 }

@@ -51,6 +51,49 @@ public abstract class BaseAction : MonoBehaviour
         OnAnyActionComplete();
     }
 
+    public EnemyAIAction GetBestEnemyAIAction()
+    {
+        List<EnemyAIAction> enemyAIActionList = new List<EnemyAIAction>();
+
+        List<GridPosition> validActionGridPositionsList = GetValidActionGridPositionList();
+
+        foreach (GridPosition gridPosition in validActionGridPositionsList)
+        {
+            // generate AI action on this specific gridPosition to get the ActionValue
+            EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
+
+            enemyAIActionList.Add(enemyAIAction);
+        }
+
+        // we have list with all possible actions, now we sort with the highest ActionValue first
+        if (enemyAIActionList.Count > 0)
+        {
+            // we use Comparer, if returns negative value, the value is larger 
+            enemyAIActionList.Sort((EnemyAIAction a, EnemyAIAction b) => b.actionValue.CompareTo(a.actionValue));
+
+            foreach (var item in enemyAIActionList)
+            {
+                print($"BaseAction: EnemyAIActionList item : {item.actionValue}, GridPosition: {item.gridPosition}, called from {gameObject.name}");
+            }
+
+            print($"BaseAction: Best Action we return: {enemyAIActionList[0].actionValue} at {enemyAIActionList[0].gridPosition}");
+            return enemyAIActionList[0]; // return action with highest ActionValue
+        }
+        else
+        {
+            // no possible enemy AI actions
+            return null; 
+        }
+    }
+
+    /// <summary>
+    /// Returns this action's ActionValue for the action at a particular GridPosition.
+    /// As a good example of how this is implemented, see MoveAction.cs
+    /// </summary>
+    /// <param name="gridPosition"></param>
+    /// <returns></returns>
+    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
+
     private void OnAnyActionStarted()
     {
         AnyActionStarted?.Invoke(this, EventArgs.Empty);
