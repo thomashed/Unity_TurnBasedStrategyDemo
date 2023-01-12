@@ -108,7 +108,6 @@ public class EnemyAI : MonoBehaviour
         if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
         {
             var testAction = bestBaseAction.GetBestEnemyAIAction();
-            print($"EnemyAI goes with action : {testAction.actionValue}, at position {testAction.gridPosition}");
             bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }

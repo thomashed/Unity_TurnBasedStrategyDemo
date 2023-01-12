@@ -71,12 +71,6 @@ public abstract class BaseAction : MonoBehaviour
             // we use Comparer, if returns negative value, the value is larger 
             enemyAIActionList.Sort((EnemyAIAction a, EnemyAIAction b) => b.actionValue.CompareTo(a.actionValue));
 
-            foreach (var item in enemyAIActionList)
-            {
-                print($"BaseAction: EnemyAIActionList item : {item.actionValue}, GridPosition: {item.gridPosition}, called from {gameObject.name}");
-            }
-
-            print($"BaseAction: Best Action we return: {enemyAIActionList[0].actionValue} at {enemyAIActionList[0].gridPosition}");
             return enemyAIActionList[0]; // return action with highest ActionValue
         }
         else
