@@ -7,7 +7,7 @@ namespace CoolBeans.Grid
 {
     public class GridDebugObject : MonoBehaviour
     {
-        private GridObject gridObject;
+        private object gridObject;
 
         [SerializeField] private TextMeshPro tmp = null;
 
@@ -17,20 +17,16 @@ namespace CoolBeans.Grid
             
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            SetGridText();
+            tmp.text = gridObject.ToString();
         }
 
-        public void SetGridObject(GridObject gridObject)
+        public virtual void SetGridObject(object gridObject)
         {
             this.gridObject = gridObject;
         }
 
-        private void SetGridText()
-        {
-            tmp.text = gridObject.ToString();
-        }
     }
 }
 

@@ -71,7 +71,7 @@ namespace CoolBeans.Grid
                     debugTransform.parent = debugObjectsParent.transform; // avoid bloating the hierachy with debugObjects
                     debugTransform.name = $"DebugObject_{x},{z}";
                     var gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                    gridDebugObject.SetGridObject(GetGridObject(gridPosition) as GridObject); // we explicitly cast this for now
+                    gridDebugObject.SetGridObject(GetGridObject(gridPosition)); // we explicitly cast this for now
                  }
             }
 #endif

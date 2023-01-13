@@ -43,7 +43,7 @@ public class LevelGrid : MonoBehaviour
         Instance = this;
 
         gridSystem = new GridSystem<GridObject>(10, 10, 2f, (GridSystem<GridObject> gridSystem, GridPosition gridPosition) => new GridObject(gridSystem, gridPosition));
-        gridSystem.CreateDebugObjects(gridDebugObjcetPrefab);
+        // gridSystem.CreateDebugObjects(gridDebugObjcetPrefab);
     }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
