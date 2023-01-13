@@ -1,29 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CoolBeans.Grid
 {
-    public class GridSystem
+    public class GridSystem<TGridObject>
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
         private float cellSize;
-        private GridObject[,] gridObjects; // 2d array for storing gridObjects
+        private TGridObject[,] gridObjects; // 2d array for storing gridObjects
 
-        public GridSystem(int width, int height, float cellSize)
+        public GridSystem(int width, int height, float cellSize, Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject)
         {
             this.Width = width;
             this.Height = height;
             this.cellSize = cellSize;
-            this.gridObjects = new GridObject[width, height];
+            this.gridObjects = new TGridObject[width, height];
 
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
                     var gridPos = new GridPosition(x,z);
-                    var gridObject = new GridObject(this, gridPos);
+                    var gridObject = createGridObject(this, gridPos); // use Func to instantiate GridObject
                     gridObjects[x, z] = gridObject;
                 }
             }
@@ -46,7 +47,7 @@ namespace CoolBeans.Grid
                 );
         }
 
-        public GridObject GetGridObject(GridPosition gridPosition)
+        public TGridObject GetGridObject(GridPosition gridPosition)
         {
             return gridObjects[gridPosition.X, gridPosition.Z];
         }
@@ -70,8 +71,8 @@ namespace CoolBeans.Grid
                     debugTransform.parent = debugObjectsParent.transform; // avoid bloating the hierachy with debugObjects
                     debugTransform.name = $"DebugObject_{x},{z}";
                     var gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                    gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-                }
+                    gridDebugObject.SetGridObject(GetGridObject(gridPosition) as GridObject); // we explicitly cast this for now
+                 }
             }
 #endif
         }
