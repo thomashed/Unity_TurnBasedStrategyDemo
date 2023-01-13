@@ -85,7 +85,7 @@ public class MoveAction : BaseAction
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         // get ShootAction to find out if our potential moveTo positions contain shootable targets within range(at that position)
-        int targetCountAtGridPosition = Unit.ShootAction.GetTargetCountAtPosition(gridPosition);
+        int targetCountAtGridPosition = Unit.GetAction<ShootAction>().GetTargetCountAtPosition(gridPosition);
 
         return new EnemyAIAction
         {

@@ -19,19 +19,13 @@ public class Unit : MonoBehaviour
 
     public GridPosition GridPosition { get; private set; }
     public HealthSystem HealthSystem { get; private set; }
-    public MoveAction MoveAction { get; private set; } // TODO: make a generic method to request an action instead of individual fields. We already have the array of actions below
-    public SpinAction SpinAction { get; private set; }
-    public ShootAction ShootAction { get; private set; }
     public BaseAction[] BaseActionArray { get; private set; } // contains all available actions for this unit
     public int ActionPoints { get; private set; } = ACTION_POINTS_MAX;
 
     private void Awake()
     {
         this.HealthSystem = GetComponent<HealthSystem>();
-        this.MoveAction = GetComponent<MoveAction>();
-        this.SpinAction = GetComponent<SpinAction>();
-        this.ShootAction = GetComponent<ShootAction>();
-        this.BaseActionArray = GetComponents<BaseAction>();
+        this.BaseActionArray = GetComponents<BaseAction>(); 
     }
 
     private void Start()
@@ -61,6 +55,19 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // return action of the requested type
+    public T GetAction<T>() where T : BaseAction
+    {
+        foreach (BaseAction baseAction in BaseActionArray)
+        {
+            if (baseAction is T)
+            {
+                return (T)baseAction; 
+            }
+        }
+
+        return null;
+    }
     
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) 

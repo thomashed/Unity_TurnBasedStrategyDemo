@@ -111,7 +111,7 @@ public class UnitActionSystem : MonoBehaviour
     private void SetSelectedUnit(Unit newUnit) 
     { 
         selectedUnit = newUnit;
-        SetSelectedAction(newUnit.MoveAction); // we know that all units always have a MoveAction
+        SetSelectedAction(newUnit.GetAction<MoveAction>()); // we know that all units always have a MoveAction
         OnSelectedUnitChanged();
     }
 
