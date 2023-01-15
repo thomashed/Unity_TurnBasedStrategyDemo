@@ -18,7 +18,7 @@ public class LevelGrid : MonoBehaviour
     {
         get 
         {
-            return gridSystem.Width;
+            return width;
         } 
     }
 
@@ -26,9 +26,13 @@ public class LevelGrid : MonoBehaviour
     {
         get 
         {
-            return gridSystem.Height;
+            return height;
         }
     }
+
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private float cellSize;
 
     public static LevelGrid Instance { get; private set; }
 
@@ -44,6 +48,11 @@ public class LevelGrid : MonoBehaviour
 
         gridSystem = new GridSystem<GridObject>(10, 10, 2f, (GridSystem<GridObject> gridSystem, GridPosition gridPosition) => new GridObject(gridSystem, gridPosition));
         // gridSystem.CreateDebugObjects(gridDebugObjcetPrefab);
+    }
+
+    private void Start()
+    {
+        PathFinding.Instance.Setup(width, height, cellSize);
     }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)

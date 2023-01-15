@@ -14,6 +14,10 @@ public class PathFinding : MonoBehaviour
     [SerializeField] private Transform gridDebugObjectPrefab = null;
     private GridSystem<PathNode> gridSystem;
 
+    private int width;
+    private int height;
+    private float cellSize;
+
     private void Awake()
     {
         if (Instance != null)
@@ -24,12 +28,16 @@ public class PathFinding : MonoBehaviour
         }
 
         Instance = this;
+    }
 
-        // gridSystem = new GridSystem<GridObject>(10, 10, 2f, (GridSystem<GridObject> gridSystem, GridPosition gridPosition) => new GridObject(gridSystem, gridPosition));
-        // TODO: we should ideally only define one grid, as right now we also define it in LevelGrid
+    public void Setup(int width, int height, float cellSize)
+    {
+        this.width = width;
+        this.height = height;
+        this.cellSize = cellSize;
+
         gridSystem = new GridSystem<PathNode>(10, 10, 2f, (GridSystem<PathNode> gridSystem, GridPosition gridPosition) => new PathNode(gridPosition));
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
-
     }
 
     public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)

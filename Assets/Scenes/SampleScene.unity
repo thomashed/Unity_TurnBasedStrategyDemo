@@ -499,7 +499,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.29700747, y: -0.14779982, z: 0.046589784, w: 0.9422161}
+  m_LocalRotation: {x: 0.29700747, y: -0.14779979, z: 0.046589777, w: 0.9422161}
   m_LocalPosition: {x: 9.981937, y: 7, z: -6.259692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1023,7 +1023,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504161975}
-  m_LocalRotation: {x: 0.29700747, y: -0.14779982, z: 0.046589784, w: 0.9422161}
+  m_LocalRotation: {x: 0.29700747, y: -0.14779979, z: 0.046589777, w: 0.9422161}
   m_LocalPosition: {x: 9.981937, y: 7, z: -6.259692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84ff496b2fc6a24d82bcbc24eb608dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridDebugObjcetPrefab: {fileID: 7596214390226208533, guid: d6c4f42b22bbe944d91f3e559be2f734,
+  gridDebugObjectPrefab: {fileID: 7596214390226208533, guid: d6c4f42b22bbe944d91f3e559be2f734,
     type: 3}
 --- !u!4 &607258376
 Transform:
@@ -2465,6 +2465,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDebugObjcetPrefab: {fileID: 7596214390226208533, guid: 2880c618d2e87e942878645db9795d80,
     type: 3}
+  width: 10
+  height: 10
+  cellSize: 2
 --- !u!4 &1518289536
 Transform:
   m_ObjectHideFlags: 0
