@@ -6,21 +6,31 @@ using UnityEngine;
 public class PathNode 
 {
 
-    private GridPosition gridPosition;
-    public int Gcost { get; private set; }
-    public int Hcost { get; private set; }
+    public GridPosition GridPosition { get; private set; }
+    public int Gcost { get; set; }
+    public int Hcost { get; set; }
     public int Fcost { get; private set; }
     // we need to keep track of where we came from in order to go back 
-    private PathNode cameFromPathNode;
+    public PathNode CameFromPathNode { get; set; }
 
     public PathNode(GridPosition gridPosition)
     {
-        this.gridPosition = gridPosition;
+        this.GridPosition = gridPosition;
+    }
+
+    public void CalculateFCost()
+    {
+        Fcost = Gcost + Hcost;
     }
 
     public override string ToString()
     {
-        return gridPosition.ToString();
+        return GridPosition.ToString();
+    }
+
+    public void ResetCameFromPathNode()
+    {
+        CameFromPathNode = null;
     }
 
 }
