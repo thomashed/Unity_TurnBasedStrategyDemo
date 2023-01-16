@@ -38,9 +38,6 @@ public class PathFinding : MonoBehaviour
 
         gridSystem = new GridSystem<PathNode>(width, height, cellSize, (GridSystem<PathNode> gridSystem, GridPosition gridPosition) => new PathNode(gridPosition));
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
-
-        GetNode(1,0).IsWalkable = false;
-        GetNode(1,1).IsWalkable = false;
     }
 
     public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
