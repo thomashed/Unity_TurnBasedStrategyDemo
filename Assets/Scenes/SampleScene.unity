@@ -1269,6 +1269,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDebugObjectPrefab: {fileID: 7596214390226208533, guid: d6c4f42b22bbe944d91f3e559be2f734,
     type: 3}
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!4 &607258376
 Transform:
   m_ObjectHideFlags: 0
@@ -3487,7 +3490,7 @@ PrefabInstance:
     - target: {fileID: 1567257889956115595, guid: dc6f65ed1ed378d46ae4d6ca9b262745,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.03
+      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 1567257889956115595, guid: dc6f65ed1ed378d46ae4d6ca9b262745,
         type: 3}
@@ -3538,6 +3541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573031466714447147, guid: dc6f65ed1ed378d46ae4d6ca9b262745,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
