@@ -10,6 +10,7 @@ public class PathNode
     public int Gcost { get; set; }
     public int Hcost { get; set; }
     public int Fcost { get; private set; }
+    public bool IsWalkable { get; set; } = true;
     // we need to keep track of where we came from in order to go back 
     public PathNode CameFromPathNode { get; set; }
 

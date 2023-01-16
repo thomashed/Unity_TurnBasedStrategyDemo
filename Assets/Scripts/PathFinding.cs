@@ -36,8 +36,11 @@ public class PathFinding : MonoBehaviour
         this.height = height;
         this.cellSize = cellSize;
 
-        gridSystem = new GridSystem<PathNode>(10, 10, 2f, (GridSystem<PathNode> gridSystem, GridPosition gridPosition) => new PathNode(gridPosition));
+        gridSystem = new GridSystem<PathNode>(width, height, cellSize, (GridSystem<PathNode> gridSystem, GridPosition gridPosition) => new PathNode(gridPosition));
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+
+        GetNode(1,0).IsWalkable = false;
+        GetNode(1,1).IsWalkable = false;
     }
 
     public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
@@ -90,6 +93,12 @@ public class PathFinding : MonoBehaviour
             {
                 // check if this neighbour is in closed list, means we already searched it
                 if (closedList.Contains(neighbourNode)) continue;
+
+                if (!neighbourNode.IsWalkable)
+                {
+                    closedList.Add(neighbourNode);
+                    continue;
+                }
 
                 // gCost based on movement cost to this neighbour node + currentnode's gCost
                 int tentativeGCost = 
