@@ -264,8 +264,7 @@ public class PathFinding : MonoBehaviour
     // check if there's a path to the given gridposition, if not, we shouldn't show it as a position we can walk to
     public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
     {
-        bool isListNull = FindPath(startGridPosition, endGridPosition, out int pathLength) != null;
-        return isListNull && (pathLength > 0);
+        return FindPath(startGridPosition, endGridPosition, out int pathLength) != null;
     }
 
     public int GetPathLength(GridPosition startGridPosition, GridPosition endGridPosition)
