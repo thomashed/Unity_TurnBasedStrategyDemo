@@ -13,6 +13,8 @@ public class PathFinding : MonoBehaviour
 
     [SerializeField] private Transform gridDebugObjectPrefab = null;
     [SerializeField] private LayerMask obstaclesLayerMask;
+
+    [SerializeField] private GameObject gameObject = null;
     private GridSystem<PathNode> gridSystem;
 
     private int width;
@@ -38,7 +40,7 @@ public class PathFinding : MonoBehaviour
         this.cellSize = cellSize;
 
         gridSystem = new GridSystem<PathNode>(width, height, cellSize, (GridSystem<PathNode> gridSystem, GridPosition gridPosition) => new PathNode(gridPosition));
-        // gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
 
         // cycle through all grids and check if we hit a PathNode that is an obstacle
         for (int x = 0; x < width; x++)

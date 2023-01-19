@@ -13,7 +13,9 @@ public class ShootAction : BaseAction
         public Unit targetUnit; // should this be props? constructor?
         public Unit shootingUnit;
     }
-    
+
+
+    [SerializeField] private LayerMask obstaclesLayerMask;
 
     [SerializeField] private int maxShootRange = 7;
     public int MaxShootRange { get => maxShootRange; private set { } }
@@ -111,11 +113,9 @@ public class ShootAction : BaseAction
     }
 
 
-    public List<GridPosition> GetValidActionGridPositionList(GridPosition gridPosition)
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
-
-        var unitGridPosition = Unit.GridPosition;
 
         for (int x = -maxShootRange; x <= maxShootRange; x++)
         {
@@ -134,7 +134,23 @@ public class ShootAction : BaseAction
                 var targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
                 if (Unit.IsEnemy == targetUnit.IsEnemy) continue; // both on the same team, ignore
-                
+
+                // check if target is behind an obstacle and view therefore is blocked at testGridPosition
+                // we're testing gridPositions BEFORE Unit is thre, to know whether we should move there or not in terms of PathFinding priority
+                //origin is at bottom of Unit, so we have to offset the ray
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight,
+                    shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask
+                    )) 
+                {
+                    continue; // blocked by obstacle, so we continue
+                }
+
                 validGridPositionList.Add(testGridPosition);
             }
         }

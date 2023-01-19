@@ -240,7 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe0852c4b99c3c48a826ed85b8108bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShootDistance: 5
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  maxShootRange: 7
 --- !u!114 &4011677449853408918
 MonoBehaviour:
   m_ObjectHideFlags: 0
