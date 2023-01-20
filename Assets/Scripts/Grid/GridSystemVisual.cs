@@ -83,7 +83,7 @@ namespace CoolBeans.Grid
                     break;
                 case ShootAction shootAction:
                     gridVisualType = GridVisualType.Red;
-                    ShowGridPositionRange(selectedUnit.GridPosition, shootAction.MaxShootRange, GridVisualType.RedSoft);
+                    ShowGridPositionRange(selectedUnit.GridPosition, shootAction.MaxShootDistance, GridVisualType.RedSoft);
                     break;
                 case SpinAction spinAction:
                     gridVisualType = GridVisualType.Blue;

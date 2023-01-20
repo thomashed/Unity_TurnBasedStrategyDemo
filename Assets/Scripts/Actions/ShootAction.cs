@@ -7,6 +7,7 @@ using UnityEngine;
 public class ShootAction : BaseAction
 {
     public event EventHandler<StartShootingEventArgs> StartShooting;
+    public static EventHandler<StartShootingEventArgs> AnyStartShooting;
 
     public class StartShootingEventArgs : EventArgs
     {
@@ -17,8 +18,8 @@ public class ShootAction : BaseAction
 
     [SerializeField] private LayerMask obstaclesLayerMask;
 
-    [SerializeField] private int maxShootRange = 7;
-    public int MaxShootRange { get => maxShootRange; private set { } }
+    [SerializeField] private int maxShootDistance = 7;
+    public int MaxShootDistance { get => maxShootDistance; private set { } }
 
     public Unit TargetUnit { get; private set; }
     private bool canShootBullet;
@@ -79,6 +80,7 @@ public class ShootAction : BaseAction
     private void Shoot()
     {
         OnStartShooting();
+        OnAnyStartShooting();
         TargetUnit.Damage(40);
     }
 
@@ -117,9 +119,9 @@ public class ShootAction : BaseAction
     {
         List<GridPosition> validGridPositionList = new List<GridPosition>();
 
-        for (int x = -maxShootRange; x <= maxShootRange; x++)
+        for (int x = -maxShootDistance; x <= maxShootDistance; x++)
         {
-            for (int z = -maxShootRange; z <= maxShootRange; z++)
+            for (int z = -maxShootDistance; z <= maxShootDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -127,7 +129,7 @@ public class ShootAction : BaseAction
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue; // are we inside the grid?
 
                 int testDistance = Math.Abs(x) + Math.Abs(z); // make the range "circular" for shooting 
-                if (testDistance > maxShootRange) continue; 
+                if (testDistance > maxShootDistance) continue; 
 
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue; // if no unit on the position, we don't care, as we search for EnemyAI, which is a Unit
 
@@ -200,6 +202,17 @@ public class ShootAction : BaseAction
         });
     }
 
-   
+    private void OnAnyStartShooting()
+    {
+        var eventArgs = new StartShootingEventArgs();
+
+        AnyStartShooting?.Invoke(this, new StartShootingEventArgs 
+        { 
+            targetUnit = TargetUnit, 
+            shootingUnit = Unit
+        });
+    }
+
+
 
 }

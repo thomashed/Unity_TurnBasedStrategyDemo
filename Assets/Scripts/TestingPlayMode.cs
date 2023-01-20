@@ -16,7 +16,6 @@ public class TestingPlayMode : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            
         }
     }
 
