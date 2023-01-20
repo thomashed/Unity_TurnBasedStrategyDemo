@@ -4058,6 +4058,152 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637369813}
   m_CullTransparentMesh: 1
+--- !u!1001 &1662009328
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667650, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667652, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: m_Name
+      value: GrenadeProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[0].time
+      value: -0.0049705505
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].time
+      value: 0.4843981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[2].time
+      value: 0.99902344
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[0].value
+      value: 0.1690979
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].value
+      value: 1.0463266
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[2].value
+      value: 0.014392853
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].inSlope
+      value: 0.4540682
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].outSlope
+      value: 0.4540682
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795116964058667653, guid: 6642ba52a929d3241a49b49111976199,
+        type: 3}
+      propertyPath: arcYAnimation.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6642ba52a929d3241a49b49111976199, type: 3}
 --- !u!1001 &1716185710
 PrefabInstance:
   m_ObjectHideFlags: 0
