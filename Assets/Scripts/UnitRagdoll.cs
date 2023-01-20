@@ -10,7 +10,9 @@ public class UnitRagdoll : MonoBehaviour
     public void Setup(Transform originalRootBone)
     {
         MatchAllChildTransform(originalRootBone, ragdollRootBone); // match original's bones, to avoid T-pose
-        ApplyExplosionToRagDoll(ragdollRootBone, 900f, transform.position, 100f); // apply force at ragdoll's position
+
+        Vector3 randomDir = new Vector3(Random.Range(-1f, +1f), 0, Random.Range(-1f, +1f));
+        ApplyExplosionToRagDoll(ragdollRootBone, 900f, transform.position + randomDir, 100f); // apply force at ragdoll's position
     }
 
     private void MatchAllChildTransform(Transform root, Transform clone)
