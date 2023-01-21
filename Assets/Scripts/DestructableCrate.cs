@@ -9,6 +9,8 @@ public class DestructableCrate : MonoBehaviour
 
     public static event EventHandler AnyDestroyed;
 
+    [SerializeField] private Transform crateDestroyedPrefab;
+
     public GridPosition GridPosition { get; private set; }
 
     private void Start()
@@ -18,6 +20,9 @@ public class DestructableCrate : MonoBehaviour
 
     public void Damage()
     {
+        var crateDestroyedTransform = Instantiate(crateDestroyedPrefab, transform.position, transform.rotation);
+        ApplyExplosionToChildren(crateDestroyedTransform, 150f, transform.position, 10f);
+
         Destroy(gameObject);
         OnAnyDestroyed();
     }
@@ -25,6 +30,19 @@ public class DestructableCrate : MonoBehaviour
     private void OnAnyDestroyed()
     {
         AnyDestroyed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ApplyExplosionToChildren(Transform root, float explosionForce, Vector3 explosionPosition, float explosionRange)
+    {
+        foreach (Transform child in root)
+        {
+            // if we have rigidBody, means we should apply explosion effect
+            if (child.gameObject.TryGetComponent<Rigidbody>(out Rigidbody childRigidBody))
+            {
+                childRigidBody.AddExplosionForce(explosionForce, explosionPosition, explosionRange);
+            }
+            ApplyExplosionToChildren(child, explosionForce, explosionPosition, explosionRange);
+        }
     }
 
 }

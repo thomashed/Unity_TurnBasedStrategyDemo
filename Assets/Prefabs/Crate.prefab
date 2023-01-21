@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1240022269743852715}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1241397039468028103
 BoxCollider:
@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545f7599dbaaac1488ee726d7d1d3e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crateDestroyedPrefab: {fileID: 1241397039468028100, guid: 0575e5fff2ce51245b75803f9dc1b45c,
+    type: 3}
 --- !u!1001 &1241397038547209861
 PrefabInstance:
   m_ObjectHideFlags: 0
