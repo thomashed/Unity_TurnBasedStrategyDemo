@@ -85,8 +85,15 @@ namespace CoolBeans.Grid
                     gridVisualType = GridVisualType.Red;
                     ShowGridPositionRange(selectedUnit.GridPosition, shootAction.MaxShootDistance, GridVisualType.RedSoft);
                     break;
+                case SwordAction swordAction:
+                    gridVisualType = GridVisualType.Red;
+                    ShowGridPositionRangeSquare(selectedUnit.GridPosition, swordAction.MaxSwordDistance, GridVisualType.RedSoft);
+                    break;
                 case SpinAction spinAction:
                     gridVisualType = GridVisualType.Blue;
+                    break;
+                case GrenadeAction grenadeAction:
+                    gridVisualType = GridVisualType.Yellow;
                     break;
             }
 
@@ -120,6 +127,23 @@ namespace CoolBeans.Grid
                     if (testDistance > range) continue; // to avoid showing range in a square
 
                     gridPositionList.Add(testGridPosition); 
+                }
+            }
+
+            ShowGridPositionList(gridPositionList, GridVisualType.RedSoft);
+        }
+
+        private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+        {
+            List<GridPosition> gridPositionList = new List<GridPosition>();
+
+            for (int x = -range; x <= range; x++)
+            {
+                for (int z = -range; z <= range; z++)
+                {
+                    GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
+                    if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue;
+                    gridPositionList.Add(testGridPosition);
                 }
             }
 

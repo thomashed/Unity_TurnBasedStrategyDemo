@@ -9,6 +9,8 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator = null; 
     [SerializeField] private Transform bulletProjectilePrefab = null;
     [SerializeField] private Transform shootPointTransform = null;
+    [SerializeField] private Transform rifleTransform;
+    [SerializeField] private Transform swordTransform;
 
     private void Awake()
     {
@@ -21,11 +23,16 @@ public class UnitAnimator : MonoBehaviour
         {
             shootAction.StartShooting += ShootAction_OnStartShooting;
         }
+        if (TryGetComponent<SwordAction>(out SwordAction swordAction))
+        {
+            swordAction.SwordActionStarted += SwordAction_SwordActionStarted;
+            swordAction.SwordActionCompleted += SwordAction_SwordActionCompleted;
+        }
     }
 
     private void Start()
     {
-        
+        EquipRifle();
     }
 
     private void Update()
@@ -55,5 +62,27 @@ public class UnitAnimator : MonoBehaviour
         bulletProjectile.Setup(targetWorldPosition);
     }
 
-   
+    private void EquipSword()
+    {
+        rifleTransform.gameObject.SetActive(false);
+        swordTransform.gameObject.SetActive(true);
+    }
+
+    private void EquipRifle()
+    {
+        rifleTransform.gameObject.SetActive(true);
+        swordTransform.gameObject.SetActive(false);
+    }
+
+    private void SwordAction_SwordActionCompleted(object sender, EventArgs e)
+    {
+        EquipRifle();
+    }
+
+    private void SwordAction_SwordActionStarted(object sender, EventArgs e)
+    {
+        EquipSword();
+        animator.SetTrigger("SwordSlash");
+    }
+
 }

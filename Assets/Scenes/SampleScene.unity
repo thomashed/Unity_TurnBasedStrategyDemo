@@ -481,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.876715
+      value: 7.740284
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -4501,7 +4501,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.617
+      value: 7.740284
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -4511,7 +4511,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -5432,7 +5432,7 @@ PrefabInstance:
     - target: {fileID: 4255012370656517932, guid: 69feba61170f1ba4fb2ef706f599b470,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 5.7402844
       objectReference: {fileID: 0}
     - target: {fileID: 4255012370656517932, guid: 69feba61170f1ba4fb2ef706f599b470,
         type: 3}
@@ -5442,7 +5442,7 @@ PrefabInstance:
     - target: {fileID: 4255012370656517932, guid: 69feba61170f1ba4fb2ef706f599b470,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4255012370656517932, guid: 69feba61170f1ba4fb2ef706f599b470,
         type: 3}
@@ -5483,6 +5483,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7357040304040718691, guid: 69feba61170f1ba4fb2ef706f599b470,
+        type: 3}
+      propertyPath: maxSwordDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
