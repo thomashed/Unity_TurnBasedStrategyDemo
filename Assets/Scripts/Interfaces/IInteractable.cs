@@ -6,6 +6,6 @@ using UnityEngine;
 public interface IInteractable
 {
 
-    void Interact(Action onInteractionComplete);
+    void Interact(Action onInteractionComplete); 
 
 }

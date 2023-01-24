@@ -44,7 +44,7 @@ public class UnitActionSystem : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn) return; // not player's turn
         if (EventSystem.current.IsPointerOverGameObject()) return; // means mouse hover over a GO with a RayCastCollider under Canvas, i.e. UI element
 
-        if (TryeHandleUnitSelection()) return; // see if we clicked a unit, if so, select said unit
+        if (TryHandleUnitSelection()) return; // see if we clicked a unit, if so, select said unit
         if (SelectedUnit == null) return;        
 
         HandleSelectedAction();
@@ -55,7 +55,7 @@ public class UnitActionSystem : MonoBehaviour
     /// </summary>
     private void HandleSelectedAction() 
     {
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance.IsMouseButtonDown())
         {
             // v2: we made the action classes have a TakeAction method that we can call, no matter what action we're triggering 
             var mousePosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
@@ -86,11 +86,11 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    private bool TryeHandleUnitSelection()
+    private bool TryHandleUnitSelection()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance.IsMouseButtonDown())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
             if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMaskUnits))
             {
                 return false;
