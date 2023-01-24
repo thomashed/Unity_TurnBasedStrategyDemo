@@ -95,6 +95,9 @@ namespace CoolBeans.Grid
                 case GrenadeAction grenadeAction:
                     gridVisualType = GridVisualType.Yellow;
                     break;
+                case InteractAction interactAction:
+                    gridVisualType = GridVisualType.Blue;
+                    break;
             }
 
             ShowGridPositionList(gridPositionList, gridVisualType);

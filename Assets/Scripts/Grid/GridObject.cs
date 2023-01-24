@@ -9,6 +9,7 @@ namespace CoolBeans.Grid
         private GridSystem<GridObject> gridSystem; // what GridSystem created this object
         private GridPosition gridPosition; // which gridPos does this object belong to
         private List<Unit> UnitList;
+        public Door Door { get; set; }
 
         public GridObject(GridSystem<GridObject> gridSystem, GridPosition gridPosition)
         {

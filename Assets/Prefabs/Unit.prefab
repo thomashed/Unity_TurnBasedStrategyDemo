@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 8972692085237496291}
   - component: {fileID: 6388440796488934315}
   - component: {fileID: 7357040304040718691}
+  - component: {fileID: 7380847364680611137}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -320,6 +321,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSwordDistance: 1
+--- !u!114 &7380847364680611137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255012370656517935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160bced1f4fe26348bb2c902697c9f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0

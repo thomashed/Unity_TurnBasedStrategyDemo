@@ -90,6 +90,18 @@ public class LevelGrid : MonoBehaviour
         return gridObject.GetUnit();
     }
 
+    public Door GetDoorAtGridPosition(GridPosition gridPosition)
+    {
+        var gridObject = gridSystem.GetGridObject(gridPosition);
+        return gridObject.Door; 
+    }
+
+    public void SetDoorAtGridPosition(GridPosition gridPosition, Door door)
+    {
+        var gridObject = gridSystem.GetGridObject(gridPosition);
+        gridObject.Door = door;
+    }
+
     public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
 
     public Vector3 GetWorldPosition(GridPosition gridPosition) => gridSystem.GetWorldPosition(gridPosition);
