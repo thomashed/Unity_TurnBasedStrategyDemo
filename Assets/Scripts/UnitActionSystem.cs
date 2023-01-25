@@ -55,7 +55,7 @@ public class UnitActionSystem : MonoBehaviour
     /// </summary>
     private void HandleSelectedAction() 
     {
-        if (InputManager.Instance.IsMouseButtonDown())
+        if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
             // v2: we made the action classes have a TakeAction method that we can call, no matter what action we're triggering 
             var mousePosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
@@ -88,7 +88,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private bool TryHandleUnitSelection()
     {
-        if (InputManager.Instance.IsMouseButtonDown())
+        if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
             var ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
             if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMaskUnits))
