@@ -564,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.740284
+      value: 19.980062
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -574,7 +574,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -610,6 +610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030002918726306395, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
+        type: 3}
+      propertyPath: stoppingDistance
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -4632,7 +4637,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.740284
+      value: 19.980062
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -4642,7 +4647,7 @@ PrefabInstance:
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3212819795426765879, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
         type: 3}
@@ -4678,6 +4683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030002918726306395, guid: 655a37d322e4f3f42a8f2ed0a9c38f2e,
+        type: 3}
+      propertyPath: stoppingDistance
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -5658,6 +5668,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932582804113242432, guid: 69feba61170f1ba4fb2ef706f599b470,
+        type: 3}
+      propertyPath: stoppingDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7357040304040718691, guid: 69feba61170f1ba4fb2ef706f599b470,
         type: 3}

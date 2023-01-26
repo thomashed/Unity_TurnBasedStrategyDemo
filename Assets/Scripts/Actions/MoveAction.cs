@@ -31,12 +31,14 @@ public class MoveAction : BaseAction
         {
             // keep moving
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            print("MOVING");
         }
         else
         {
             currentPositionIndex++;
             if (currentPositionIndex >= positionList.Count)
             {
+                print("ELSE");
                 // we reached target 
                 OnStopMoving();
                 ActionComplete();
@@ -96,6 +98,7 @@ public class MoveAction : BaseAction
         {
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
+        print("positionList Count: " + positionList.Count);
 
         OnStartMoving();
         ActionStart(onActionComplete);

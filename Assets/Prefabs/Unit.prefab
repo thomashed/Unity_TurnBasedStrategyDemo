@@ -177,7 +177,7 @@ Transform:
   - {fileID: 4255012371013018225}
   - {fileID: 7901811253769182999}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4022738724022826671
 BoxCollider:
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703219b75747bde41ac910fca3472d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoppingDistance: 0.01
+  stoppingDistance: 0.1
   maxMoveDistance: 3
 --- !u!114 &2827660262334642854
 MonoBehaviour:
@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160bced1f4fe26348bb2c902697c9f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxInteractDistance: 1
 --- !u!1 &4255012371013018224
 GameObject:
   m_ObjectHideFlags: 0
